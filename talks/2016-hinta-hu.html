@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html hola_ext_inject="disabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Blockchain, Bitcoin, Ethereum</title>
+
+    <script src="./2016-hinta-hu/slides.js"></script><style type="text/css"></style>
+  <meta name="viewport" content="width=1100,height=750"><meta name="apple-mobile-web-app-capable" content="yes"></head>
+
+  <body style="display: none" class="loaded">
+
+    <section class="slides layout-widescreen">
+
+      <article class="current">
+        <h1>Blockchain, Bitcoin, Ethereum</h1>
+        <h3 style="font-size: 40px; line-height: 40px;">Globális konszenzus... avagy úton Skynet felé? 😈</h3><br>
+        <h3>2016. április 8.</h3><h3>Madarasi Hargita</h3><br><br>
+        <div class="presenter" style="position: absolute; bottom: 3em; left: 2em">
+
+
+
+  <p>
+    Szilágyi Péter
+  </p>
+
+
+
+
+
+  <p>
+    Ethereum Core Developer
+  </p>
+
+
+
+        </div>
+        <img src="./2016-hinta-hu/logo.png" width="128px" height="128px" style="position: absolute; bottom: 2em; right: 1em">
+
+        <span style="position: absolute; left: 4em; bottom: 1em; font-size: 14px;">
+          Ez a bemutató a 10. Hargitai Informatikus (diák) Találkozó-ra készült és
+          <a href="https://medium.com/@ConsenSys/programmable-blockchains-in-context-ethereum-s-future-cd8451eb421e#.grb1x0c66" target="">
+            Vinay Gupta: Programmable Blockchains in Context
+          </a>
+          munkáját használta kiindulási forrásként. <a href="2016-hinta-en.slide">Angol fordítás.</a>
+        </span>
+      </article>
+
+
+
+      <article class="next">
+
+        <h2>I. Felvonás – 1970 IBM</h2>
+
+      </article>
+
+
+
+      <article class="far-next">
+
+        <h3>Számítástechnika születése</h3>
+        <img src="./2016-hinta-hu/mainframe.jpg" style="position: absolute; right: 2.5em; top: 2.5em; width: 500px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    <i>Hatalmas vasak</i> világa
+  </p>
+
+
+  <ul>
+
+    <li>Pörgő szalagmeghajtó szekrények</li>
+
+    <li>Nyakkendős karbantartók serege</li>
+
+    <li>Digitális adattárolás kialakulása</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    <b>Óriás</b> cégek <b>legfontosabb</b> adatainak <b>beláthatatlan</b> összegekért való tárolása.
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Torzított valóság születése... hogy mi? 😕</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Valós világ táblázatokba erőltetése
+  </p>
+
+
+  <ul>
+
+    <li>Relációs adatmodell és SQL eredete</li>
+
+    <li>Tudásmenedzsment és szemantikus hálók</li>
+
+    <li>Nem ábrázolható táblázatban? <b>Akkor nem létezik!</b></li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Fél évszázad fájdalmas hagyatéka...
+  </p>
+
+<img src="./2016-hinta-hu/contract.png" style="position: absolute; right: 2.0em; bottom: 2.0em; width: 400px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+  <ul>
+
+    <li>Formanyomtatvány? Egy adatbázis táblázata!</li>
+
+    <li>Facebook, WhatsApp, Tinder? Adatbázisok!</li>
+
+    <li>RDS nem érti miért nincs net? Adatbázis!</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>II. Felvonás – 1990 Tim Berners-Lee</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Világháló születése – A hálózat a számítógép ~Sun Microsystems</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Számítógépek hálózatokba szervezése
+  </p>
+
+
+  <ul>
+
+    <li>Egyetemek, cégek, magánemberek; önszerveződve</li>
+
+    <li>Protokollok megjelenése: Telnet, E-mail, HTTP</li>
+
+    <li>Esetlegestől állandósult kapcsolatokig</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    <i>Tárgyak internetének</i> kialakulása
+  </p>
+
+
+  <ul>
+
+    <li>Egyre kisebb, olcsóbb és okosabb komponensek</li>
+
+    <li>Mindent átható jelenlét (pl. okos égők)</li>
+
+  </ul>
+<img src="./2016-hinta-hu/lifx.png" style="position: absolute; right: 2.5em; bottom: 2.5em; width: 300px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Két világ összecsapása 💥</h3>
+        <img src="./2016-hinta-hu/datacenter.jpg" style="position: absolute; right: 2.0em; top: 2.0em; width: 400px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<div style="position: absolute; right: 5.5em; bottom: 11.5em;">adatbázis vs. hálózat</div>
+<img src="./2016-hinta-hu/network.jpg" style="position: absolute; right: 2.0em; bottom: 2.0em; width: 400px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Több adatbázis együttműködése
+  </p>
+
+
+  <ul>
+
+    <li>Láthatatlan adatáramlás cégek között</li>
+
+    <li>Felhasználó érdekeinek képviselése</li>
+
+    <li>Implicit kapcsolat saját gépeinkkel</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Jelen gépeink? <i>Drága papírszimulátorok...</i>
+  </p>
+
+
+  <ul>
+
+    <li>Adatbázisok programozók képmásai</li>
+
+    <li>Formanyomtatványok mint kapcsolatok</li>
+
+    <li>Együttműködés túl drága, túl bürokratikus</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Kössük össze az adatbázisokat! (ahm, nem...)</h3>
+        <img src="./2016-hinta-hu/graph-2.png" style="position: absolute; right: 6em; bottom: 20.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/graph-3.png" style="position: absolute; right: 4em; bottom: 17.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/graph-4.png" style="position: absolute; right: 2em; bottom: 14.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/graph-5.png" style="position: absolute; right: 4em; bottom: 11.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/graph-6.png" style="position: absolute; right: 6em; bottom: 8.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/graph-7.png" style="position: absolute; right: 4em; bottom: 5.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/graph-8.png" style="position: absolute; right: 2em; bottom: 2.0em; width: 75px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/packaging.jpg" style="position: absolute; right: 7em; bottom: 2.0em; width: 202px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Keresztbe kapcsoljuk, "oszt müxik"
+  </p>
+
+
+  <ul>
+
+    <li>Szervezet saját adatbázisa? <b>Abszolút igazság</b></li>
+
+    <li>Másik fél adatbázisa? <b>Véleménynyilvánítás</b></li>
+
+    <li>Kommunikáció spekulációra redukálódik</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Használhatatlan instabilitás
+  </p>
+
+
+  <ul>
+
+    <li>Apró változtatás észrevétlen hibát eredményezhet</li>
+
+    <li>Gondolkodásmód-beli eltérések, félreértések</li>
+
+    <li>Faktoriálisan növekvő hibalehetőségek</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Központosítsuk együttműködéseinket! (ó, jaj...)</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/hubandspoke.png" style="position: absolute; right: 3.5em; top: 4em; width: 300px;">
+
+<img src="./2016-hinta-hu/facebook.png" style="position: absolute; left: 11.0em; bottom: 2em; width: 100px;">
+<img src="./2016-hinta-hu/google.png" style="position: absolute; left: 16.5em; bottom: 2em; width: 100px;">
+<img src="./2016-hinta-hu/mastercard.png" style="position: absolute; left: 22.0em; bottom: 2.5em; width: 100px;">
+<img src="./2016-hinta-hu/lufthansa.png" style="position: absolute; left: 27.5em; bottom: 2em; width: 100px;">
+
+
+  <p>
+    Egy mindenki által megbízott fél közvetítése
+  </p>
+
+
+  <ul>
+
+    <li>Egyetlen standard, mindenki beszéli (PayPal)</li>
+
+    <li>Önkéntesen előállított <b>természetes monopólium</b></li>
+
+    <li>Semleges közvetítő helyett politikai és pénzügyi szörny</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Kiadtuk magán-, professzionális és pénzügyi életünket. De infrastruktúránkat is!
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Protokollok, protokollok, protokollok...</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Együttműködés személyes érdekek <b>felett</b>
+  </p>
+
+
+  <ul>
+
+    <li>Globálisan elfogadott, bárkinek elérhető, decentralizált</li>
+
+    <li>BGP, DHCP, DNS, FTP, IMAP, HTTP, NTP, POP, SMTP, SSL</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    3 évtized óta stagnálunk! Skype, Slack, WhatsApp?
+  </p>
+
+
+  <ul>
+
+    <li>Monopóliumhajhászat és elfalazott rendszerek</li>
+
+    <li>Részvényesek és befektetők önkényuralma</li>
+
+    <li>Fény az alagútban: BitTorrent és Wiki (±)</li>
+
+  </ul>
+<img src="./2016-hinta-hu/wikipedia.png" style="position: absolute; right: 2.5em; bottom: 2.5em; width: 250px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>III. Felvonás – 2008 Blockchain</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Bitcoin – 7 milliárd dollár értékű véletlen  – Internet központi bankja</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/bitcoin.png" style="position: absolute; right: 0.5em; bottom: 0.5em; width: 400px;">
+
+
+  <p>
+    Akadémiai kísérlet globális konszenzusra
+  </p>
+
+
+  <ul>
+
+    <li>Peer-to-peer adatbázis, ami előbb-utóbb konvergál</li>
+
+    <li>Minden résztvevő egyenlően megbízhatatlan</li>
+
+    <li>Jobban megéri segíteni, mint támadni (!)</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Miért pont pénzügy? Kézzelfogható, közérthető
+  </p>
+
+
+  <ul>
+
+    <li>Globális adatbázis, hogy kinek mennyi pénze van</li>
+
+    <li>Mégis csak a tulajdonos kezelheti saját pénzét</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Bitcoin lelke – Blokklánc-technológia</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<span style="position: absolute; right: 33em; bottom: 19em; text-align: center;">Kezdeti, közös<br>állapot</span>
+<span style="position: absolute; right: 26em; bottom: 19em; text-align: center;">Tranzakciók<br>hirdetése</span>
+<span style="position: absolute; right: 18.75em; bottom: 19em; text-align: center;">Rendezés,<br>összefésülés</span>
+<span style="position: absolute; right: 12em; bottom: 19em; text-align: center;">Blokk<br>hirdetése</span>
+<span style="position: absolute; right: 3.5em; bottom: 19em; text-align: center;">Végrehajtás,<br>új közös állapot</span>
+
+<img src="./2016-hinta-hu/blockchain.png" style="position: absolute; right: 2.5em; bottom: 4em; width: 37.5em;">
+
+<span style="position: absolute; right: 15.5em; bottom: 2.5em;">Ismételjük a végtelenségig...</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Blokkok szabályozása – Aranybányászat!? ლ(ಠ_ಠ ლ)</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/story.png" style="position: absolute; right: 4.5em; top:7.5em; width: 300px;">
+<img src="./2016-hinta-hu/chest_gold.png" style="position: absolute; right: 5.5em; bottom: 5.5em; width: 50px;">
+<img src="./2016-hinta-hu/chest_gold_2.png" style="position: absolute; right: 4.75em; bottom: 4.75em; width: 50px;">
+<img src="./2016-hinta-hu/chest_gold_3.png" style="position: absolute; right: 4em; bottom: 4em; width: 50px;">
+
+<span style="position: absolute; left: 8em; bottom: 1.5em; font-size: 14px;">
+	Varázsló ⇔ Node | Lötyi ⇔ Tranzakció | Láda ⇔ Blokk | Bányászat ⇔ Hashelés | Arany díszítés ⇔ 00..0 hash előtag | Egyediségi garancia ⇔ Előző hashre épül
+</span>
+
+
+  <p>
+    Egy játékos szemszögéből 😋
+  </p>
+
+
+  <ul>
+
+    <li>Varázslók gyártják főzeteiket, de nincs helyük</li>
+
+    <li>Ládát rendelnek, de félnek a monopóliumtól</li>
+
+    <li>Több ládából viszont nem tudnak választani</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Kéne egy megoldás, hogy csak egy láda készüljön el...
+  </p>
+
+
+  <ul>
+
+    <li>Aranyláda! 😆 Aranyat bányászni nehéz, szerencsére megy 😈</li>
+
+    <li>Egyedi! 😆 Félkész ládát ne lehessen átalakítani a köv. rendelésre 😈</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Bitcoin klónok, színes érmék</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/altcoins.png" style="position: absolute; right: 3em; top: 3em; width: 400px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+
+  <p>
+    A bitcoin fantasztikus sikert aratott
+  </p>
+
+
+  <ul>
+
+    <li>Beláthatatlan sok másolat született</li>
+
+    <li>Rengeteg módosított protokoll létrejött</li>
+
+    <li>Hasznosak, de megbízhatatlanok: <b>túl kicsik</b></li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Az egymilliárdos kérdés: <i>Össze lehetne-e rakni őket egyetlen hálózatba?</i>
+  </p>
+
+
+  <ul>
+
+    <li>Általános, alkalmazásfüggetlen adattárolás (megoldható)</li>
+
+    <li>Mindegyiket – jövőbelit is – magában foglaló hálózati protokoll (őőő...)</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>2015 Ethereum – Turing teljes hálózat</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Ethereum – hálózat az adatbázis – hálózat a számítógép</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/geth.png" style="position: absolute; right: 2.5em; bottom: 2.5em; width: 300px;">
+
+
+  <p>
+    Világ egyetlen globális számítógépe
+  </p>
+
+
+  <ul>
+
+    <li>Tökéletes gép: nem hibázik, nem áll le</li>
+
+    <li>Univerzálisan elérhető: bárkinek, bárhonnan</li>
+
+    <li>Feltörésbiztos: befolyásolhatatlan, cenzúrázhatatlan</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    De mire jó? 😅
+  </p>
+
+
+  <ul>
+
+    <li>Ismeretlen felek közti áthághatatlan egyezségek</li>
+
+    <li>Harmadik fél által megakadályozhatatlan együttműködések</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Példa – Közösségi finanszírozás</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/crowdsale.png" style="position: absolute; right: 2em; top: 2em; width: 472px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-hinta-hu/crowdfunding.png" style="position: absolute; right: 2.5em; bottom: 2.5em; width: 150px;">
+
+
+  <p>
+    Idegenektől pénzgyűjtés saját projektre
+  </p>
+
+
+  <ul>
+
+    <li>Meghirdetünk egy gyűjtést fix időkerettel</li>
+
+    <li>Ha összegyűl a teljes összeg, megkapjuk</li>
+
+    <li>Ha nem, mindenki visszakapja a sajátját</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Apró programozott szerződés (az ni ⇒)
+  </p>
+
+
+  <ul>
+
+    <li>Nincs köztes fél, aki kezelési díjat szedjen</li>
+
+    <li>Elég a helyi jogszabályoknak megfelelni</li>
+
+    <li>Egyértelmű és garantált a végkimenet</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Korlátok és aktív fejlesztések – Web 3.0</h3>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+<img src="./2016-hinta-hu/ethereum.png" style="position: absolute; right: 2.5em; bottom: 16.5em; height: 100px;">
+<img src="./2016-hinta-hu/swarm.jpg" style="position: absolute; right: 2em; bottom: 9.5em; height: 100px;">
+<img src="./2016-hinta-hu/whisper.jpg" style="position: absolute; right: 2em; bottom: 2em; height: 100px;">
+
+
+  <p>
+    Globális teljesítményben gyenge (20-25 tps)
+  </p>
+
+
+  <ul>
+
+    <li>Prototípus szintjén x10-x100, kutatás szintjén x10000 gyorsítás (<b>Casper</b>)</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Masszív adattárolásra túl költséges a blokklánc
+  </p>
+
+
+  <ul>
+
+    <li>Pre-alpha állapotú globális file-rendszer készülőben (<b>Swarm</b>)</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hinta-hu/whitespace.png">
+</div>
+
+
+  <p>
+    Nincs valós idejű interakció (15 másodperc átfutási idő)
+  </p>
+
+
+  <ul>
+
+    <li>Működő, de inaktív globális dark messaging (<b>Whisper</b>)</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+        <h3>Köszönöm</h3>
+
+          <div class="presenter">
+
+
+  <p>
+    Szilágyi Péter
+  </p>
+
+<p class="link"><a href="mailto:peter@ethereum.org" target="_blank">peter@ethereum.org</a></p><p class="link"><a href="http://twitter.com/peter_szilagyi" target="_blank">@peter_szilagyi</a></p>
+          </div>
+
+          <div class="presenter">
+
+
+  <p>
+    Ethereum Core Developer
+  </p>
+
+<p class="link"><a href="https://ethereum.org/" target="_blank">https://ethereum.org/</a></p>
+          </div>
+
+      </article>
+
+    <div class="slide-area" id="prev-slide-area"></div><div class="slide-area" id="next-slide-area"></div></section>
+
+    <div id="help">
+      Használd a balra és jobbra nyilakat vagy kattints a bal vagy jobb
+      szélére az jelen diának a diák közötti navigációhoz.<br>
+      (Nyomj 'H' betűt vagy navigálj, hogy elrejtsd ezt az üzenetet.)
+    </div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./2016-hinta-hu/fonts.css"><link rel="stylesheet" type="text/css" href="./2016-hinta-hu/styles.css"></body></html>
