@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://localhost:3999/pwn.slide#1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Breaking Ethereum 😈</title>
+
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+      var notesEnabled =  false ;
+    </script>
+    <script src="./2016-hackethon/slides.js"></script>
+
+
+  <meta name="viewport" content="width=1100,height=750"><meta name="apple-mobile-web-app-capable" content="yes"></head>
+
+  <body style="display: none" class="loaded">
+
+    <section class="slides layout-widescreen">
+
+      <article class="current">
+        <h1>Breaking Ethereum 😈</h1>
+        <h3 style="font-size: 40px; line-height: 40px;">Lessons learnt from broken contracts</h3><br>
+        <h3>10 September 2016</h3><h3>Thomson Reuters Hackethon</h3><br><br>
+        <div class="presenter" style="position: absolute; bottom: 2em; left: 2em">
+
+
+
+  <p>
+    Péter Szilágyi
+  </p>
+
+
+
+
+
+  <p>
+    Ethereum Core Developer
+  </p>
+
+
+
+        </div>
+        <img src="./2016-hackethon/logo.png" width="128px" height="128px" style="position: absolute; bottom: 2em; right: 1em">
+      </article>
+
+
+
+      <article class="next">
+
+        <h2>If you don't know the chain dynamics...</h2>
+
+      </article>
+
+
+
+      <article class="far-next">
+
+        <h3>Ether faucet – 0x793ae8c1b1a160bfc07bfb0d04f85eab1a71f4f2</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract Faucet {</span>
+<span num="2">    uint amount = 0.01 ether;</span>
+<span num="3">    uint freq   = 5760;</span>
+<span num="4"></span>
+<span num="5">    mapping (address =&gt; uint) prev;</span>
+<span num="6"></span>
+<span num="7">    function request() {</span>
+<span num="8">        if (address(this).balance &lt; amount) {</span>
+<span num="9">            return;</span>
+<span num="10">        }</span>
+<span num="11">        if(block.number &lt; prev[msg.sender] + freq) {</span>
+<span num="12">            return;</span>
+<span num="13">        }</span>
+<span num="14">        msg.sender.send(amount);</span>
+<span num="15">        prev[msg.sender] = block.number;</span>
+<span num="16">    }</span>
+<span num="17">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/faucet.png" style="background-color: white; position: absolute; right: 5.5em; top: 10em; width: 250px; border:solid 1px rgb(224,224,224); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+
+  <p>
+    Give away 0.01 Ether to anyone, once per 24 hours... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Ether faucet – pwned 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+<img src="./2016-hackethon/faucet_simple.png" style="position: absolute; right: 6em; top: 7em; width: 250px;">
+<img src="./2016-hackethon/faucet_chained.png" style="position: absolute; right: 9em; bottom: 4em; width: 250px;">
+
+
+  <p>
+    Payout (0.01 Ether) is a nice amount
+  </p>
+
+
+  <ul>
+
+    <li>4.1x withdrawals (48748 gas * 50 gwei)</li>
+
+    <li>9.5x transactions (21000 gas * 50 gwei)</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Faucet security ⇔ Account uniqueness
+  </p>
+
+
+  <ul>
+
+    <li>24h restriction applies per account</li>
+
+    <li>No global withdrawal throttling</li>
+
+  </ul>
+<span style="position: absolute; left: 10em; bottom: 1.5em;">
+	<em>Lesson: Accounts are free, instantaneous and infinite!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Roulette – 0x5fe5b7546d1628f7348b023a0393de1fc825a4fd</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Sizeable <a href="https://github.com/retotrinkler/solidity1/blob/master/alpha/roulette.sol" target="_blank">implementation</a> of a roulette game
+  </p>
+
+
+  <ul>
+
+    <li>Users bet on various outcomes of a "spin"</li>
+
+    <li>After each bet the contract spins the wheel</li>
+
+  </ul>
+<img src="./2016-hackethon/roulette.gif" style="background-color: white; position: absolute; right: 2em; bottom: 14.3em; width: 250px;">
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract Roulette {</span>
+<span num="2">    uint seed = 1;</span>
+<span num="3"></span>
+<span num="4">    function rand() private returns (uint) {</span>
+<span num="5">        seed = ((seed*3 + 1)/2 % 10**9);</span>
+<span num="6">        </span>
+<span num="7">        return (seed + block.number + block.difficulty + block.timestamp + block.gaslimit) % 37;</span>
+<span num="8">    }</span>
+<span num="9">    [...]</span>
+<span num="10">}</span>
+</pre>
+
+
+</div>
+
+
+  <p>
+    Uses an onchain random number generator... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Roulette – pwned 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+<img src="./2016-hackethon/roulette_miner.png" style="position: absolute; right: 4em; top: 7em; width: 350px;">
+<img src="./2016-hackethon/roulette_contract.png" style="position: absolute; right: 2em; bottom: 6.5em; width: 350px;">
+
+
+  <p>
+    Miners make the chain
+  </p>
+
+
+  <ul>
+
+    <li>Block parameters are defined by miners</li>
+
+    <li>Included transactions are chosen by miners</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Transactions are aware of the chain
+  </p>
+
+
+  <ul>
+
+    <li>Block parameters are shared between them</li>
+
+    <li>Contracts decide runtime how to invoke others</li>
+
+  </ul>
+<span style="position: absolute; left: 9.5em; bottom: 1.5em;">
+	<em>Lesson: Blockchain state is free for all to use and abuse!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Etherdice – 0x2faa316fc4624ec39adc2ef7b5301124cfb68777</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Fairly <a href="https://etherdice.io/#contract" target="_blank">involved</a> dice game
+  </p>
+
+
+  <ul>
+
+    <li>Owner seeds round with hidden number</li>
+
+    <li>Players bet on outcomes with own numbers</li>
+
+    <li>Owner reveals the number, evaluating the round</li>
+
+  </ul>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract Dice {</span>
+<span num="2">    function evaluate(bytes32 seed) {</span>
+<span num="3">        // [...] verify the seed</span>
+<span num="4">        for (uint i = 0; i &lt; bets.length; i++) {</span>
+<span num="5">            // [...] evaluate bets and pay winners</span>
+<span num="6">        }</span>
+<span num="7">    }</span>
+<span num="8">    [...]</span>
+<span num="9">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/dice.jpg" style="background-color: white; position: absolute; right: 3em; bottom: 12.5em; width: 220px;">
+
+
+  <p>
+    Iterate over all accumulated bets in one go... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Etherdice – self pwned 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Blocks have limited gas allowances
+  </p>
+
+
+  <ul>
+
+    <li>Limits the transactions in a block</li>
+
+    <li>Limits the gas of a single transaction</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Etherdice iterated all bets when closing a round
+  </p>
+
+
+  <ul>
+
+    <li>Gas usage increased linearly with popularity 😕</li>
+
+    <li>Reaching critical mass, the contract locked up 🙃</li>
+
+  </ul>
+	<img src="./2016-hackethon/dice_growth.png" style="position: absolute; right: 2em; top: 5em; width: 500px;">
+<span style="position: absolute; left: 7.5em; bottom: 1.5em;">
+	<em>Lesson: Operations above O(1) will eventually exceed the gas limit!*</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>If you don't know the language dynamics...</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>GovernMental – 0xf45717552f12ef7cb65e95476f217ea008167ae3</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    <a href="https://github.com/GovernMental/GovernMental" target="_blank">Twisted</a> Ponzi scheme with smart contracts
+  </p>
+
+
+  <ul>
+
+    <li>Newcomers invest money to become members</li>
+
+    <li>Members earn returns from newcomer investments</li>
+
+  </ul>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract GovernMental {</span>
+<span num="2">    address[] creditors; uint[] credited;</span>
+<span num="3"></span>
+<span num="4">    function invest() {</span>
+<span num="5">        if (block.timestamp - lastInvested &lt; TWELVE_HOURS) { ... } else {</span>
+<span num="6">            creditors = new address[](0);</span>
+<span num="7">            credited  = new uint[](0);</span>
+<span num="8">        }</span>
+<span num="9">    }</span>
+<span num="10">    [...]</span>
+<span num="11">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/ponzi.jpg" style="background-color: white; position: absolute; right: 3em; bottom: 14.5em; width: 250px;">
+
+
+  <p>
+    Casually reset the contract at round end... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>GovernMental – self pwned 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Contract storage in EVM is a single hash map
+  </p>
+
+
+  <ul>
+
+    <li>All contract fields map into the same storage area</li>
+
+    <li>Array elements map into the same storage space too</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Freeing up a field ⇔ zeroing out a storage entry
+  </p>
+
+
+  <ul>
+
+    <li>Freeing up an array ⇔ freeing <b>all</b> associated entries</li>
+
+  </ul>
+<img src="./2016-hackethon/ponzi_storage.png" style="position: absolute; right: 2em; top: 7.5em; width: 350px;">
+<span style="position: absolute; left: 10.5em; bottom: 1.5em;">
+	<em>Lesson: Understand and avoid magical constructs!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>King of the Ether – 0xb336a86e2feb1e87a328fcb7dd4d04de3df254d0</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Game of Thrones pyramid <a href="https://github.com/kieranelby/KingOfTheEtherThrone/tree/v0.4.0/contracts" target="_blank">contract</a>
+  </p>
+
+
+  <ul>
+
+    <li>Usurpers pay the ether-price for the throne</li>
+
+    <li>The ruler is paid and mysteriously disappears</li>
+
+  </ul>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract KingOfTheEtherThrone {</span>
+<span num="2">    address monarch;</span>
+<span num="3"></span>
+<span num="4">    function claim() {</span>
+<span num="5">        // [...] calculate the ruler's compensation</span>
+<span num="6"></span>
+<span num="7">        monarch.send(compensation);</span>
+<span num="8">        monarch = msg.sender;</span>
+<span num="9">    }</span>
+<span num="10">    [...]</span>
+<span num="11">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/throne.jpg" style="background-color: white; position: absolute; right: 3em; bottom: 14.3em; width: 220px;">
+
+
+  <p>
+    Send blindly to compensate the previous ruler... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>King of the Ether – broken 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Sending funds is an external CALL operation
+  </p>
+
+
+  <ul>
+
+    <li>Recipient execution limited to 2300 gas</li>
+
+    <li>Returns whether the send succeeded</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    But what if the ether transfer failed?
+  </p>
+
+
+  <ul>
+
+    <li>Ignore it? Bail out? Work around?</li>
+
+    <li>Not caring easily breaks invariants!</li>
+
+  </ul>
+<img src="./2016-hackethon/throne_succeed.png" style="position: absolute; right: 3.5em; top: 6em; width: 350px; opacity: 0.33;">
+<img src="./2016-hackethon/throne_fail.png" style="position: absolute; right: 5.5em; top: 14.75em; width: 350px;">
+<span style="position: absolute; left: 10em; bottom: 1.5em;">
+	<em>Lesson: Anything that can go wrong, will go wrong!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>If you don't know the EVM dyamics...</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>MakerDAO – 0xe02640be68df835aa3327ea6473c02c8f6c3815a</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    <a href="https://github.com/makerdao" target="_blank">Contracts</a> and <a href="https://github.com/nexusdev" target="_blank">frameworks</a> for an on-chain crypto exchange
+  </p>
+
+
+  <ul>
+
+    <li>Users deposit and trade various tokens (and Ether)</li>
+
+    <li>Users are free to withdraw coins at any point</li>
+
+  </ul>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract MakerEthToken {</span>
+<span num="2">    function withdraw(uint amount) {</span>
+<span num="3">        if (balances[msg.sender] &gt;= amount) {</span>
+<span num="4">            if (msg.sender.call.value(amount)()) {</span>
+<span num="5">                balances[msg.sender] -= amount;</span>
+<span num="6">            }</span>
+<span num="7">        }</span>
+<span num="8">    }</span>
+<span num="9">    [...]</span>
+<span num="10">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/maker.jpg" style="position: absolute; right: 3em; bottom: 14.5em; width: 275px;">
+
+
+  <p>
+    Send funds with full gas allowance... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>MakerDAO – preventive pwned 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Calling another contract relinquishes execution
+  </p>
+
+
+  <ul>
+
+    <li>Arbitrary code may execute (different context)</li>
+
+    <li>Entire granted gas allowance may be consumed</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Recipient may have enough gas to call further
+  </p>
+
+
+  <ul>
+
+    <li>Can update multiple related contracts (good)</li>
+
+    <li>Can call back in to the original contract (hmmm)</li>
+
+  </ul>
+<img src="./2016-hackethon/maker_success.png" style="position: absolute; right: 4.5em; bottom: 14em; width: 250px; opacity: 0.33;">
+<img src="./2016-hackethon/maker_fail.png" style="position: absolute; right: 1.5em; bottom: 9em; width: 400px;">
+<span style="position: absolute; left: 11em; bottom: 1.5em;">
+	<em>Lesson: External calls will eventually loop back in!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Pre-homestead multisig wallet</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Wallet <a href="https://github.com/ethereum/meteor-dapp-wallet/blob/e0980c6905006456945b8b465df71ea1bf2111b2/Wallet.sol" target="_blank">contract</a> requiring multiple authorizations
+  </p>
+
+
+  <ul>
+
+    <li>To save on deploy: <i>user → stub (multi) → code (single)</i></li>
+
+    <li>Context needs to be forwarded down the call chain</li>
+
+  </ul>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract MultiOwned {</span>
+<span num="2">    mapping(uint =&gt; uint) owners;</span>
+<span num="3"></span>
+<span num="4">    modifier onlyowner {</span>
+<span num="5">        if (owners[tx.origin] &gt; 0) {</span>
+<span num="6">            _</span>
+<span num="7">        }</span>
+<span num="8">    }</span>
+<span num="9">    [...]</span>
+<span num="10">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/wallet.jpg" style="background-color: white; position: absolute; right: 3em; top: 3em; width: 275px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+
+  <p>
+    Simply use <i>tx.origin</i> for authentication... what could go wrong? 😇
+  </p>
+
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Pre-homestead multisig wallet – swapped before pwn 🙃</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Pre-homestead, libraries used CALLCODE
+  </p>
+
+
+  <ul>
+
+    <li>Forwards runtime context, except <i>msg.sender</i></li>
+
+    <li>Libraries relied on <i>tx.origin</i> to authorize the transactor</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    Internal transactions retain the same <i>tx.origin</i>
+  </p>
+
+
+  <ul>
+
+    <li><b>My</b> nested contracts can authorize me (good)</li>
+
+    <li><b>Not my</b> nested contracts can reenter as me (oops)</li>
+
+  </ul>
+<img src="./2016-hackethon/wallet_direct.png" style="position: absolute; right: 4em; top: 5.5em; width: 300px;">
+<img src="./2016-hackethon/wallet_loop.png" style="position: absolute; right: 2em; bottom: 8.5em; width: 400px;">
+<span style="position: absolute; left: 10em; bottom: 1.5em;">
+	<em>Lesson: Authorization forwarding is exceptionally risky!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>TheDAO – 0xbb9bc244d798123fde783fcc1c72d3bb8c189413</h3>
+        <img src="./2016-hackethon/dao.jpg" style="background-color: white; position: absolute; right: 6.25em; bottom: 3.5em; height: 500px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<span style="position: absolute; left: 16em; bottom: 1.5em;">
+	<em>Lesson: Don't! Just don't!</em>
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>Beer keg challenge 🍺</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Beer keg – 0x629469c8db3a4d7bcc3a823effcf8900119ba7e7</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+
+  <p>
+    <a href="http://etherscan.io/address/0x629469c8db3a4d7bcc3a823effcf8900119ba7e7#code" target="_blank">Untappable</a> beer contract
+  </p>
+
+
+  <ul>
+
+    <li>A round of beer inside (5 Ether)</li>
+
+    <li>Crack it open? Have a round on me!</li>
+
+  </ul>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">contract BeerKeg {</span>
+<span num="2">    bytes20 prev; // Nickname of the previous tap attempt</span>
+<span num="3"></span>
+<span num="4">    function tap(bytes20 nickname) {</span>
+<span num="5">        prev = nickname;</span>
+<span num="6">        if (prev != nickname) {</span>
+<span num="7">            msg.sender.send(this.balance);</span>
+<span num="8">        }</span>
+<span num="9">    }</span>
+<span num="10">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-hackethon/beer.jpg" style="background-color: white; position: absolute; right: 2.4em; bottom: 14.3em; width: 200px;">
+
+<span style="position: absolute; left: 16em; bottom: 1.5em;">
+	<em>Lesson: You tell me!</em> 😈
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Legacy of the fallen ones... ଘ(੭*ˊᵕˋ)੭</h3>
+
+<div class="image">
+  <img src="./2016-hackethon/whitespace.png">
+</div>
+
+  <ul>
+
+    <li>Accounts are free, instantaneous and infinite! (20 Ether)</li>
+
+    <li>Blockchain state is free for all to use and abuse! (150 Ether)</li>
+
+    <li>Operations above O(1) will exceed the gas limit! (5192 Ether)</li>
+
+    <li>Understand and avoid magical constructs! (1100 Ether)</li>
+
+    <li>Anything that can go wrong, will go wrong! (42 Ether)</li>
+
+    <li>External calls will eventually loop back in! (5800 Ether)</li>
+
+    <li>Authorization forwarding is exceptionally risky! (0 Ether)</li>
+
+    <li>Never forget Mt. Gox! Never forget TheDAO! (3.6M Ether)</li>
+
+    <li>Bonus: Compilers are written by mere mortals! (5 Ether)</li>
+
+  </ul>
+<img src="./2016-hackethon/lesson.png" style="position: absolute; right: 2.5em; bottom: 2.5em; width: 250px;">
+
+
+      </article>
+
+
+
+      <article>
+        <h3>Thank you</h3>
+
+          <div class="presenter">
+
+
+  <p>
+    Péter Szilágyi
+  </p>
+
+<p class="link"><a href="mailto:peter@ethereum.org" target="_blank">peter@ethereum.org</a></p><p class="link"><a href="http://twitter.com/peter_szilagyi" target="_blank">@peter_szilagyi</a></p>
+          </div>
+
+          <div class="presenter">
+
+
+  <p>
+    Ethereum Core Developer
+  </p>
+
+<p class="link"><a href="https://ethereum.org/" target="_blank">https://ethereum.org/</a></p>
+          </div>
+
+      </article>
+
+    <div class="slide-area" id="prev-slide-area"></div><div class="slide-area" id="next-slide-area"></div></section>
+
+    <div id="help">
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press 'H' or navigate to hide this message.)
+    </div>
+
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76391520-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+<link rel="stylesheet" type="text/css" href="./2016-hackethon/fonts.css"><link rel="stylesheet" type="text/css" href="./2016-hackethon/styles.css"></body></html>
