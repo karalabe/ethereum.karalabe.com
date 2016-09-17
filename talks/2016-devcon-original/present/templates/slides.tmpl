@@ -1,0 +1,95 @@
+{/* This is the slide template. It defines how presentations are formatted. */}
+
+{{define "root"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.Title}}</title>
+    <meta charset='utf-8'>
+    <script>
+      var notesEnabled = {{.NotesEnabled}};
+    </script>
+    <script src='/static/slides.js'></script>
+
+    {{if .NotesEnabled}}
+    <script>
+      var sections = {{.Sections}};
+    </script>
+    <script src='/static/notes.js'></script>
+    {{end}}
+  </head>
+
+  <body style='display: none'>
+
+    <section class='slides layout-widescreen'>
+
+      <article>
+        <h1>{{.Title}}</h1>
+        {{with .Subtitle}}<h3 style="font-size: 40px; line-height: 40px;">{{.}}</h3>{{end}}<br/>
+        {{if not .Time.IsZero}}<h3>{{.Time.Format "2 January 2006"}}</h3><h3>Devcon 2, Shanghai</h3>{{end}}<br/><br/>
+        <div class="presenter" style="position: absolute; bottom: 2em; left: 2em">
+          {{range .Authors}}
+            {{range .TextElem}}{{elem $.Template .}}{{end}}
+          {{end}}
+        </div>
+        <img src='/static/logo.png' width="128px" height="128px"  style="position: absolute; bottom: 2em; right: 1em"/>
+      </article>
+
+  {{range $i, $s := .Sections}}
+  <!-- start of slide {{$s.Number}} -->
+      <article>
+      {{if $s.Elem}}
+        <h3>{{$s.Title}}</h3>
+        {{range $s.Elem}}{{elem $.Template .}}{{end}}
+      {{else}}
+        <h2>{{$s.Title}}</h2>
+      {{end}}
+      </article>
+  <!-- end of slide {{$i}} -->
+  {{end}}{{/* of Slide block */}}
+
+      <article>
+        <h3>Thank you</h3>
+        {{range .Authors}}
+          <div class="presenter">
+            {{range .Elem}}{{elem $.Template .}}{{end}}
+          </div>
+        {{end}}
+        <img src='/static/android_bundle.png' width="150px" style="position: absolute; bottom: 4em; left: 2em"/>
+        <img src='/static/ios_bundle.png' width="150px" style="position: absolute; bottom: 2em; left: 8em"/>
+        <em style="position: absolute; bottom: 7.75em; left: 8.5em">← <a href="https://ethereum.karalabe.com/talks/2016-devcon/geth.aar" target="_blank">Android</a></em>
+        <em style="position: absolute; bottom: 2.75em; left: 4.5em"><a href="https://ethereum.karalabe.com/talks/2016-devcon/Geth.framework.tar.bz2" target="_blank">iOS</a> →</em>
+        <img src='/static/fadeout.jpg' width="200px" style="position: absolute; bottom: 2em; right: 2em"/>
+        <span style="position: absolute; right: 3.5em; bottom: 1em; font-size: 14px;">
+          Gophers drawn by <a href="http://reneefrench.blogspot.co.uk/" target="_blank">Renee French</a>
+        </span>
+      </article>
+
+    </section>
+
+    <div id="help">
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press 'H' or navigate to hide this message.)
+    </div>
+
+    {{if .PlayEnabled}}
+    <script src='/play.js'></script>
+    {{end}}
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76391520-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
+{{end}}
+
+{{define "newline"}}
+<br>
+{{end}}
