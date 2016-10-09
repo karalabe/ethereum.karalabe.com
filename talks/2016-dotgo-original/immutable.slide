@@ -1,0 +1,220 @@
+Immutability in Go
+Post mortem from a DoS-ed blockchain
+10 Oct 2016
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Core Developer
+https://ethereum.org/
+
+* Glimpse into a new world
+
+* Blockchains from a distance
+
+.image immutable/whitespace.png
+
+Global peer-to-peer networks
+
+- Owned and operated by random people
+- Built up from different open source clients
+- Implementing a shared consensus protocol
+
+.html immutable/networks_embed.html
+
+* Blockchains from close up
+
+.image immutable/whitespace.png
+
+Attempts at uncorruptible shared truths
+
+- Conceptually a global decentralized database
+- Updates periodically aggregated and broadcast
+- Eventual consistency only due to competing truths
+
+.html immutable/blockchain_embed.html
+
+* Blockchains from the inside
+
+.image immutable/whitespace.png
+
+Most toxic ecosystems in technology... (⊙_⊙)
+
+- Network secured through monetary incentives
+- Financial value creates crypto-currency markets
+- Unregulated markets incentivize malicious actors
+
+.html immutable/toxicity_embed.html
+
+* So... where's the connection to dotGo?
+
+* Where blockchain meets Go
+
+.image immutable/whitespace.png
+
+_"Ethereum_is_a_decentralized_platform_that_runs_smart_contracts:_applications_that_run_exactly_as_programmed_without_any_possibility_of_downtime,_censorship,_fraud_or_third_party_interference."_
+
+.image immutable/whitespace.png
+
+- Most complex blockchain system in production
+- Second highest valuation at $1.1B (Bitcoin $9.7B)
+- Network majority running the Go implementation
+
+.html immutable/gopher_embed.html
+
+* Where blockchain meets dotGo
+
+.image immutable/whitespace.png
+
+19th September, 4 in the morning
+
+- Attacker found sloppy caching in go-ethereum
+- Hand crafted suite of malicious smart contracts
+- 70% of Ethereum nodes simultaneously crashed
+
+.image immutable/whitespace.png
+
+Ethereum's current state is a 2.8M node trie
+
+- Updates, forks and rollbacks every 15 seconds
+- *Mutable*data*structures*are*hard*to*reason*about*
+
+.html immutable/burn_embed.html
+
+* Sharing memory the Go way – Communication
+
+.image immutable/whitespace.png
+
+Slight caveats with this model
+
+- Sharing data via communication takes time (1)
+- Maintaining superfluous copies wastes memory (2)
+- Mutating local or global state prevents versioned data (3)
+
+.html immutable/communication_embed.html
+
+* Sharing through immutability
+
+* Back to basics – String vs. []byte
+
+.html immutable/string_vs_slice_embed.html
+
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+
+Slices can change, but strings are *immutable¹*
+
+- Strings are safe to share between goroutines
+- Substrings reference the same backing memory
+- Passing strings around require only *shallow*copies*
+
+* Userspace immutability
+
+.image immutable/whitespace.png
+
+Custom structs can be made immutable
+
+- All fields private (irrelevant of mutability)
+- Members initialized on construction
+- No setters or mutators allowed
+
+.image immutable/whitespace.png
+
+Data purity must be preserved
+
+- External mutables copied on init
+- Internal mutables copied on retrieve
+
+* Userspace immutability – Gopher
+⁣
+
+.code immutable/immutable_struct.go
+.code immutable/immutable_constructor.go
+.code immutable/immutable_getters.go
+.html immutable/gopher_struct_embed.html
+
+* Object composition
+
+.image immutable/whitespace.png
+
+Arbitrarily complex object hierarchy
+
+- Preserves all immutability benefits
+- Allows intertwined memory sharing
+
+.image immutable/whitespace.png
+
+Immutable objects need to remain light
+
+- Immutable composition relies on copies
+- Assignment and dereference must be cheap
+- Nested objects better off as pointers or interfaces
+
+* Object composition – Gopher family tree
+⁣
+
+.code immutable/hierarchy_struct.go
+.code immutable/hierarchy_constructor.go
+.code immutable/hierarchy_getter.go
+
+.html immutable/ancestry_short_embed.html
+
+* Structure mutation
+
+.image immutable/whitespace.png
+
+Updates can be done (only) via recompositions
+
+- Hierarchy unwinded until mutated object
+- New immutable object created in place
+- Recombine with stable fields upward
+
+.image immutable/whitespace.png
+
+Mutations always result in new objects
+
+- Deep updates hit the garbage collector
+- Both old and new objects are valid versions
+
+* Structure mutation – Gopher family tree (1)
+
+.image immutable/whitespace.png
+
+.code immutable/mutating_update.go
+
+* Structure mutation – Gopher family tree (2)
+
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+.image immutable/whitespace.png
+
+Lightweight object trees
+
+- Immutable and concurrent
+- Memory shared between versions
+
+.html immutable/ancestry_long_embed.html
+
+* Epilogue
+
+.image immutable/whitespace.png
+
+Data structure immutability is nice
+
+- Enables lock free concurrent access
+- Allows memory sharing via composition
+- Permits easier reasoning about complexity
+
+.image immutable/whitespace.png
+
+Data structure immutability is hard
+
+- Go lacks supporting language constructs
+- Immutables have performance and GC implications
+
+.html immutable/epilogue_embed.html

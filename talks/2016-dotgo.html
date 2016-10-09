@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://localhost:3999/immutable.slide#1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Immutability in Go</title>
+
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+      var notesEnabled =  false ;
+    </script>
+    <script src="./2016-dotgo/slides.js"></script>
+
+
+  <meta name="viewport" content="width=1100,height=750"><meta name="apple-mobile-web-app-capable" content="yes"></head>
+
+  <body style="display: none" class="loaded">
+
+    <section class="slides layout-widescreen">
+
+      <article class="current">
+        <h1>Immutability in Go</h1>
+        <h3 style="font-size: 40px; line-height: 40px;">Post mortem from a DoS-ed blockchain</h3><br>
+        <h3>10 October 2016</h3><h3>dotGo, Paris</h3><br><br>
+        <div class="presenter" style="position: absolute; bottom: 2em; left: 2em">
+
+
+
+  <p>
+    Péter Szilágyi
+  </p>
+
+
+
+
+
+  <p>
+    Ethereum Core Developer
+  </p>
+
+
+
+        </div>
+        <img src="./2016-dotgo/logo.png" width="128px" height="128px" style="position: absolute; bottom: 2em; right: 1em">
+      </article>
+
+
+
+      <article class="next">
+
+        <h2>Glimpse into a new world</h2>
+
+      </article>
+
+
+
+      <article class="far-next">
+
+        <h3>Blockchains from a distance</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Global peer-to-peer networks
+  </p>
+
+
+  <ul>
+
+    <li>Owned and operated by random people</li>
+
+    <li>Built up from different open source clients</li>
+
+    <li>Implementing a shared consensus protocol</li>
+
+  </ul>
+<img src="./2016-dotgo/bitcoin_network.png" style="position: absolute; bottom: 2em; left: 5em; width: 400px; border:solid 1px rgb(224,224,224); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-dotgo/ethereum_network.png" style="position: absolute; bottom: 2em; right: 5em; width: 400px; border:solid 1px rgb(224,224,224); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; bottom: 2em; left: 19.5em; font-size: 12px;">5232 Bitcoin nodes (29th September, 2016)</span>
+<span style="position: absolute; bottom: 2em; right: 18.5em; font-size: 12px;">7480 Ethereum nodes (29th September, 2016)</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Blockchains from close up</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Attempts at uncorruptible shared truths
+  </p>
+
+
+  <ul>
+
+    <li>Conceptually a global decentralized database</li>
+
+    <li>Updates periodically aggregated and broadcast</li>
+
+    <li>Eventual consistency only due to competing truths</li>
+
+  </ul>
+<span style="position: absolute; left: 7.5em; bottom: 13em; text-align: center; font-size: 20px;">Initial state</span>
+<span style="position: absolute; left: 14.75em; bottom: 13em; text-align: center; font-size: 20px;">Update requests</span>
+<span style="position: absolute; left: 24.5em; bottom: 13em; text-align: center; font-size: 20px;">Aggregation</span>
+<span style="position: absolute; left: 32em; bottom: 13em; text-align: center; font-size: 20px;">Block propagation</span>
+<span style="position: absolute; left: 42.5em; bottom: 13em; text-align: center; font-size: 20px;">Next state</span>
+
+<img src="./2016-dotgo/blockchain.png" style="position: absolute; bottom: 3em; left: 3.5em; height: 175px;">
+
+<span style="position: absolute; right: 22.75em; bottom: 2.5em; font-size: 20px;">To infinity... and beyond!</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Blockchains from the inside</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Most toxic ecosystems in technology... (⊙_⊙)
+  </p>
+
+
+  <ul>
+
+    <li>Network secured through monetary incentives</li>
+
+    <li>Financial value creates crypto-currency markets</li>
+
+    <li>Unregulated markets incentivize malicious actors</li>
+
+  </ul>
+<img src="./2016-dotgo/mtgox.jpg" style="position: absolute; bottom: 2em; left: 5em; height: 225px; border:solid 1px rgb(224,224,224); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2016-dotgo/thedao.png" style="position: absolute; bottom: 2em; right: 5em; height: 225px; border:solid 1px rgb(224,224,224); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; bottom: 2em; left: 22em; font-size: 12px;">Mt. Gox: Bitcoin's largest heist</span>
+<span style="position: absolute; bottom: 2em; right: 20.5em; font-size: 12px;">TheDAO: Ethereum's largest heist</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>So... where's the connection to dotGo?</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Where blockchain meets Go</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    <i>"Ethereum is a decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference."</i>
+  </p>
+
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+  <ul>
+
+    <li>Most complex blockchain system in production</li>
+
+    <li>Second highest valuation at $1.1B (Bitcoin $9.7B)</li>
+
+    <li>Network majority running the Go implementation</li>
+
+  </ul>
+<img src="./2016-dotgo/gopher.png" style="position: absolute; bottom: -3em; right: 2em; width: 100px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Where blockchain meets dotGo</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    19th September, 4 in the morning
+  </p>
+
+
+  <ul>
+
+    <li>Attacker found sloppy caching in go-ethereum</li>
+
+    <li>Hand crafted suite of malicious smart contracts</li>
+
+    <li>70% of Ethereum nodes simultaneously crashed</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Ethereum's current state is a 2.8M node trie
+  </p>
+
+
+  <ul>
+
+    <li>Updates, forks and rollbacks every 15 seconds</li>
+
+    <li><b>Mutable data structures are hard to reason about</b></li>
+
+  </ul>
+<img src="./2016-dotgo/burn_1.png" style="position: absolute; top: 4em; right: 4em; height: 200px;">
+<img src="./2016-dotgo/burn_2.png" style="position: absolute; bottom: 4em; right: 4em; height: 200px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Sharing memory the Go way – Communication</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Slight caveats with this model
+  </p>
+
+
+  <ul>
+
+    <li>Sharing data via communication takes time (1)</li>
+
+    <li>Maintaining superfluous copies wastes memory (2)</li>
+
+    <li>Mutating local or global state prevents versioned data (3)</li>
+
+  </ul>
+<img src="./2016-dotgo/communication.jpg" style="position: absolute; bottom: 1.5em; right: 7em; width: 700px;">
+<span style="position: absolute; bottom: 15em; right: 38em; font-size: 16px;">(1)</span>
+<span style="position: absolute; bottom: 15em; right: 25em; font-size: 16px;">(2)</span>
+<span style="position: absolute; bottom: 15em; right: 16.5em; font-size: 16px;">(3)</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>Sharing through immutability</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Back to basics – String vs. []byte</h3>
+        <img src="./2016-dotgo/string_internals.png" style="position: absolute; top: 5.75em; left: 7em; height: 175px;">
+<img src="./2016-dotgo/slice_internals.png" style="position: absolute; top: 5.75em; left: 23em; height: 175px;">
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Slices can change, but strings are <b>immutable¹</b>
+  </p>
+
+
+  <ul>
+
+    <li>Strings are safe to share between goroutines</li>
+
+    <li>Substrings reference the same backing memory</li>
+
+    <li>Passing strings around require only <b>shallow copies</b></li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Userspace immutability</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Custom structs can be made immutable
+  </p>
+
+
+  <ul>
+
+    <li>All fields private (irrelevant of mutability)</li>
+
+    <li>Members initialized on construction</li>
+
+    <li>No setters or mutators allowed</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Data purity must be preserved
+  </p>
+
+
+  <ul>
+
+    <li>External mutables copied on init</li>
+
+    <li>Internal mutables copied on retrieve</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Userspace immutability – Gopher</h3>
+
+
+  <p>
+    ⁣
+  </p>
+
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">type Gopher struct {</span>
+<span num="2">    <b>name    string // Immutable type</b></span>
+<span num="3">    <b>picture []byte // Mutable type</b></span>
+<span num="4">}</span>
+</pre>
+
+
+</div>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">func NewGopher(name string, pic []byte) *Gopher {</span>
+<span num="2">    g := &amp;Gopher{</span>
+<span num="3">        <b>name:    name,                   // Shallow copy immutable</b></span>
+<span num="4">        <b>picture: make([]byte, len(pic)), // Deep copy mutable</b></span>
+<span num="5">    }</span>
+<span num="6">    copy(g.picture, pic)</span>
+<span num="7">    return g</span>
+<span num="8">}</span>
+</pre>
+
+
+</div>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1"><b>func (g *Gopher) Name() string    { return g.name } // Shallow copy immutable</b></span>
+<span num="2"><b>func (g *Gopher) Picture() []byte {                 // Deep copy mutable</b></span>
+<span num="3">    pic := make([]byte, len(g.picture))</span>
+<span num="4">    copy(pic, g.picture)</span>
+<span num="5">    return pic</span>
+<span num="6">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-dotgo/gopher_swim.jpg" style="position: absolute; top: 2em; right: 4em; height: 90px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Object composition</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Arbitrarily complex object hierarchy
+  </p>
+
+
+  <ul>
+
+    <li>Preserves all immutability benefits</li>
+
+    <li>Allows intertwined memory sharing</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Immutable objects need to remain light
+  </p>
+
+
+  <ul>
+
+    <li>Immutable composition relies on copies</li>
+
+    <li>Assignment and dereference must be cheap</li>
+
+    <li>Nested objects better off as pointers or interfaces</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Object composition – Gopher family tree</h3>
+
+
+  <p>
+    ⁣
+  </p>
+
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">type Gopher struct {</span>
+<span num="2">    name    string</span>
+<span num="3">    picture []byte</span>
+<span num="4">    <b>parents [2]*Gopher // Lightweight immutables</b></span>
+<span num="5">}</span>
+</pre>
+
+
+</div>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">func NewGopher(name string, pic []byte, parents []*Gopher) *Gopher {</span>
+<span num="2">    // [...] Init basic fields as previously</span>
+<span num="3"></span>
+<span num="4">    <b>for i, parent := range parents { // Dereference any pointers</b></span>
+<span num="5">        <b>cpy := *parent</b></span>
+<span num="6">        <b>g.parents[i] = &amp;cpy</b></span>
+<span num="7">    <b>}</b></span>
+<span num="8">    return g</span>
+<span num="9">}</span>
+</pre>
+
+
+</div>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">func (g *Gopher) Parent(idx int) *Gopher {</span>
+<span num="2">    <b>cpy := *g.parents[idx] // Internal pointers never escape</b></span>
+<span num="3">    <b>return &amp;cpy</b></span>
+<span num="4">}</span>
+</pre>
+
+
+</div>
+<img src="./2016-dotgo/ancestry_short.png" style="position: absolute; top: 7.25em; right: 4.5em; height: 335px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Structure mutation</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Updates can be done (only) via recompositions
+  </p>
+
+
+  <ul>
+
+    <li>Hierarchy unwinded until mutated object</li>
+
+    <li>New immutable object created in place</li>
+
+    <li>Recombine with stable fields upward</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Mutations always result in new objects
+  </p>
+
+
+  <ul>
+
+    <li>Deep updates hit the garbage collector</li>
+
+    <li>Both old and new objects are valid versions</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Structure mutation – Gopher family tree (1)</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+  <div class="code" contenteditable="true" spellcheck="false">
+
+
+<pre><span num="1">func ExtendFamilyTree(gopher, ancestor *Gopher, ancestry []int) *Gopher {</span>
+<span num="2">    <b>mutable := *gopher // Reconstruct all objects on the update path</b></span>
+<span num="3"></span>
+<span num="4">    if len(ancestry) == 0 {</span>
+<span num="5">        <b>// Mutate the object at the deepest level</b></span>
+<span num="6">        if mutable.parents[0] == nil {</span>
+<span num="7">            mutable.parents[0] = ancestor</span>
+<span num="8">        } else {</span>
+<span num="9">            mutable.parents[1] = ancestor</span>
+<span num="10">        }</span>
+<span num="11">    } else {</span>
+<span num="12">        <b>// Unwind and recombine objects on the update path</b></span>
+<span num="13">        index := ancestry[0]</span>
+<span num="14">        parent := mutable.parents[ancestry[0]]</span>
+<span num="15"></span>
+<span num="16">        mutable.parents[index] = ExtendFamilyTree(parent, ancestry[1:], ancestor)</span>
+<span num="17">    }</span>
+<span num="18">    return &amp;mutable</span>
+<span num="19">}</span>
+</pre>
+
+
+</div>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Structure mutation – Gopher family tree (2)</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Lightweight object trees
+  </p>
+
+
+  <ul>
+
+    <li>Immutable and concurrent</li>
+
+    <li>Memory shared between versions</li>
+
+  </ul>
+<img src="./2016-dotgo/ancestry_long.png" style="position: absolute; top: 4.5em; right: 4.5em; height: 450px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Epilogue</h3>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Data structure immutability is nice
+  </p>
+
+
+  <ul>
+
+    <li>Enables lock free concurrent access</li>
+
+    <li>Allows memory sharing via composition</li>
+
+    <li>Permits easier reasoning about complexity</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2016-dotgo/whitespace.png">
+</div>
+
+
+  <p>
+    Data structure immutability is hard
+  </p>
+
+
+  <ul>
+
+    <li>Go lacks supporting language constructs</li>
+
+    <li>Immutables have performance and GC implications</li>
+
+  </ul>
+<img src="./2016-dotgo/gopher_biplane.jpg" style="position: absolute; top: 5.5em; right: 8em; height: 200px;">
+<img src="./2016-dotgo/gopher_zapped.png" style="position: absolute; bottom: 3.5em; right: 6em; height: 175px;">
+
+
+      </article>
+
+
+
+      <article>
+        <h3>Thank you</h3>
+
+          <div class="presenter">
+
+
+  <p>
+    Péter Szilágyi
+  </p>
+
+<p class="link"><a href="mailto:peter@ethereum.org" target="_blank">peter@ethereum.org</a></p><p class="link"><a href="http://twitter.com/peter_szilagyi" target="_blank">@peter_szilagyi</a></p>
+          </div>
+
+          <div class="presenter">
+
+
+  <p>
+    Ethereum Core Developer
+  </p>
+
+<p class="link"><a href="https://ethereum.org/" target="_blank">https://ethereum.org/</a></p>
+          </div>
+
+        <img src="./2016-dotgo/fadeout.jpg" width="200px" style="position: absolute; bottom: 2em; right: 2em">
+        <span style="position: absolute; right: 3.5em; bottom: 1em; font-size: 14px;">
+          Gophers drawn by <a href="http://reneefrench.blogspot.co.uk/" target="_blank">Renee French</a>
+        </span>
+      </article>
+
+    <div class="slide-area" id="prev-slide-area"></div><div class="slide-area" id="next-slide-area"></div></section>
+
+    <div id="help">
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press 'H' or navigate to hide this message.)
+    </div>
+
+
+    <script src="./2016-dotgo/play.js"></script>
+
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76391520-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+<link rel="stylesheet" type="text/css" href="./2016-dotgo/fonts.css"><link rel="stylesheet" type="text/css" href="./2016-dotgo/styles.css"></body></html>
