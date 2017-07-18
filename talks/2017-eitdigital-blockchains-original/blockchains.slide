@@ -1,0 +1,296 @@
+Blockchain, Bitcoin, Ethereum
+Breaking the system... one institution at a time 😈
+24 Jul 2017
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Team Lead
+https://ethereum.org/
+
+* Act I – 1970 IBM
+
+* Birth of modern computing
+
+.html blockchains/mainframe_embed.html
+
+.image blockchains/whitespace.png
+
+The world of _big_iron_
+
+- Rooms full of spinning tape drives
+- Army of sharply dressed operators
+- The genesis of digital data storage
+.image blockchains/whitespace.png
+
+.image blockchains/whitespace.png
+
+*Gigantic* corporations paid *exorbitant* amounts to store their *most*valuable* data.
+
+* Birth of a distorted reality... whaaat? 😕
+
+.image blockchains/whitespace.png
+
+Forcing reality into spreadsheets
+
+- Origins of relational data model and SQL
+- Knowledge management and semantic web
+- Doesn't fit into a spreadsheet? *Then*it*ain't*real!*
+
+.image blockchains/whitespace.png
+
+Half a century's painful legacy...
+
+.html blockchains/form_embed.html
+
+- Paper form to fill? Table of a database!
+- Facebook, WhatsApp, Tinder? Databases!
+- Fiber cable breaks. ISP: Did you try rebooting?
+
+* Act II – 1990 Tim Berners-Lee
+
+* Birth of the web – The network is the computer ~Sun Microsystems
+
+.image blockchains/whitespace.png
+
+Organic formation of computer networks
+
+- Universities, companies, people; self-organizing
+- Emergence of protocols: Telnet, E-mail, HTTP
+- Intermittent to permanent connectivity
+
+.image blockchains/whitespace.png
+
+Invention of the _Internet_of_Things_
+
+- Ever smaller, cheaper and smarter components
+- Pervasive presence (eg. smart lightbulbs)
+
+.html blockchains/lifx_embed.html
+
+* Where worlds collide 💥
+
+.html blockchains/worlds_embed.html
+
+.image blockchains/whitespace.png
+
+Databases working together
+
+- Seamless flow of data between entities
+- Representing solely users' interests
+- Orchestrated via their laptops
+
+.image blockchains/whitespace.png
+
+Our machines? _Expensive_paper_simulators..._
+
+- Databases follow the images of their creators
+- Connectivity boils down to filling out forms
+- Collaboration is costly and bureaucratic
+
+* Let's connect the databases! (uhm, no...)
+
+.html blockchains/whatcangowrong_embed.html
+
+.image blockchains/whitespace.png
+
+Link'em up and they'll just work™
+
+- Our own database? *Absolute*truth*
+- Other's database? *Statement*of*opinion*
+- Data flow is reduced to *speculation*and*trust*
+
+.image blockchains/whitespace.png
+
+Unusable long-term instability
+
+- Tiny changes may result in unforseen consequences
+- Interpretations from institutional assumptions
+- Exponentially increasing failure possibilities
+
+* Let's centralize our collaborations! (oh my...)
+
+.image blockchains/whitespace.png
+
+.html blockchains/mediator_embed.html
+
+Orchestration by a trusted third party
+
+- Single standard, spoken by everybody
+- Self-consciously co-created *natural*monopoly*
+- Neutral intermediary ⇒ financial and political monster
+
+.image blockchains/whitespace.png
+
+Delegating our social-, professional and financial interactions. But infrastructure too!
+
+* Protocols, protocols, protocols...
+
+.image blockchains/whitespace.png
+
+Collaboration *above* personal interests
+
+- Globally accepted, available to all, decentralized
+- BGP, DHCP, DNS, FTP, IMAP, HTTP, NTP, POP, SMTP, TLS/SSL
+
+.image blockchains/whitespace.png
+
+Stagnation for 3 decades! Skype, Slack, WhatsApp?
+
+- Monopoly attempts and walled gardens
+- At the whim of investors and shareholders
+- Light in the tunnel: BitTorrent and Wikipedia (±)
+
+.html blockchains/wikipedia_embed.html
+
+* Act III – 2008 Blockchain
+
+* Bitcoin – 48 billion dollar "accident"  – Central Bank of the Internet
+
+.image blockchains/whitespace.png
+
+.html blockchains/bitcoin_embed.html
+
+Academic experiment for global consensus
+
+- Peer-to-peer database, eventual convergence
+- No trust is required between participants
+- Higher yield by support then attack (!)
+
+.image blockchains/whitespace.png
+
+Why financial application? Understandable, acceptable
+
+- Global ledger of who has how much money
+- Only the owner can ever access the funds
+
+* Soul of Bitcoin – Blockchain technology
+
+.image blockchains/whitespace.png
+
+.html blockchains/blockchain_embed.html
+
+* Bitcoin clones, colored coins
+
+.image blockchains/whitespace.png
+
+.html blockchains/altcoins_embed.html
+
+Bitcoin became an enormous success
+
+- Countless blatant copies popped up
+- Significantly many modified protocols
+- Useful, but untrustable: *plain*too*small*
+
+.image blockchains/whitespace.png
+
+Trillion dollar question: _Could_they_be_merged_into_a_single_network?_
+
+- Generic, application independent data storage (can't be that hard)
+- All logic – future included – encompassing network protocol (uhm... hmm...)
+
+* 2015 Ethereum – Turing complete network
+
+* Ethereum – network is the database – network is the computer
+
+.image blockchains/whitespace.png
+
+.html blockchains/geth_embed.html
+
+Worlds first and only global computer
+
+- Perfect machine: doesn't fault, doesn't stop
+- Universally available: from anywhere, to anyone
+- Cannot be subverted: influence- and censorship-proof
+
+.image blockchains/whitespace.png
+
+But what can it actually do?! 😅
+
+- Unbreakable agreements between unknown parties
+- Collaborations unstoppable by uninvolved third parties
+
+* Example – Crowdfunding
+
+.image blockchains/whitespace.png
+
+.html blockchains/crowdfunding_embed.html
+
+Gathering funds from complete strangers
+
+- Announce crowdsale with fixed deadline
+- If enough donations get sent, we keep it
+- If not, everyone gets their money back
+
+.image blockchains/whitespace.png
+
+Tiny programmed contract (this one ⇒)
+
+- No intermediary to collect fees
+- Conform only to local laws
+- Guaranteed outcome
+
+* Limitations and current development – Web 3.0
+
+.image blockchains/whitespace.png
+
+.html blockchains/web3_embed.html
+
+Global throughput not high enough (20-25 tps)
+
+- At prototype level x10-x100, research level x10000 speedup (*Casper*)
+
+.image blockchains/whitespace.png
+
+Too expensive for data storage (5¢ / tweet)
+
+- Global filesystem at alpha level in development (*Swarm*)
+
+.image blockchains/whitespace.png
+
+No real time interaction (15-30s latency)
+
+- Working beta global dark messaging (*Whisper*)
+
+* Decentralizing the Establishment
+
+* Example – Arcade City
+
+.image blockchains/whitespace.png
+
+Blockchan based taxi service
+
+- Customers call a taxi via a deposit
+- Pay each mile live via micro-transactions
+- Driver stops the taxi when payment interrupts
+
+.html blockchains/arcadecity_embed.html
+
+* Example – Ujo Music
+
+.image blockchains/whitespace.png
+.image blockchains/whitespace.png
+.image blockchains/whitespace.png
+.image blockchains/whitespace.png
+.image blockchains/whitespace.png
+
+Blockchain based music publisher
+
+- Music tracks know their own creators
+- Customers pay the artists directly, per track
+- Fee split proportionally between contributors, live
+
+.html blockchains/ujomusic_embed.html
+
+* Example – Provenance
+
+.image blockchains/whitespace.png
+
+Blockchain based origin tracking
+
+- Producers publicly register their products
+- Labels contain secret authorization code
+- Buyers can take ownership of the items
+
+.html blockchains/provenance_embed.html
