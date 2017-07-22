@@ -16,7 +16,7 @@
       <article>
         <h1>{{.Title}}</h1>
         {{with .Subtitle}}<h3 style="font-size: 40px; line-height: 40px;">{{.}}</h3>{{end}}<br/>
-        {{if not .Time.IsZero}}<h3>{{.Time.Format "2 January 2006"}}</h3><h3>Budapest</h3>{{end}}<br/><br/>
+        {{if not .Time.IsZero}}<h3>{{.Time.Format "2 January 2006"}}</h3><h3>EIT Digital, Budapest</h3>{{end}}<br/><br/>
         <div class="presenter" style="position: absolute; bottom: 3em; left: 2em">
           {{range .Authors}}
             {{range .TextElem}}{{elem $.Template .}}{{end}}
