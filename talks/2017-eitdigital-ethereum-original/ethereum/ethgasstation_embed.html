@@ -1,0 +1,27 @@
+<h3><a href="http://ethgasstation.info/" target="_blank" style="position: absolute; left: 18.5em; top: 1.35em;">http://ethgasstation.info/</a></h3>
+
+<img id="ethgasstation-static" src="ethereum/demo_ethgasstation.png" style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;"/>
+<div id="ethgasstation-wrapper" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="ethgasstation" style="position: absolute; width: 1600px; height: 100%; border: none;"></iframe>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	$("#ethgasstation").on('load', function() {
+		ethgasstationResize(); $('#ethgasstation-wrapper').fadeIn(1000); $('#ethgasstation-static').fadeOut(1000);
+	});
+	$("#ethgasstation").attr('src', 'http://ethgasstation.info/');
+
+	var ethgasstationResize = function() {
+		var scale = 990 / 1600;
+
+		$("#ethgasstation-wrapper").width(1600);
+		$("#ethgasstation-wrapper").height(525 / scale);
+		$("#ethgasstation-wrapper").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', ethgasstationResize);
+</script>

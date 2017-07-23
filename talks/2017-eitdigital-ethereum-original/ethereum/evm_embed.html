@@ -1,0 +1,81 @@
+<style>
+.semihidden {
+	opacity: 0.1;
+}
+.semihidden:hover {
+	opacity: 1.0;
+}
+</style>
+
+<div class="semihidden">
+<img src="ethereum/adder.png" style="position: absolute; right: 5em; top:2.25em; width: 300px;"/>
+<pre style="position: absolute; right: 6em; top: 7em; font-size: 8px; line-height: 9px;">
+.code
+  PUSH 60
+  PUSH 40
+  MSTORE
+  PUSH FFFFFFFF
+  PUSH 10..0
+  PUSH 0
+  CALLDATALOAD
+  DIV
+  AND
+  PUSH A5F3C23B
+  DUP2
+  EQ
+  PUSH [tag] 2
+  JUMPI
+tag 1
+  JUMPDEST
+  PUSH 0
+  DUP1
+  REVERT
+tag 2
+  JUMPDEST
+  CALLVALUE
+  ISZERO
+  PUSH [tag] 3
+  JUMPI
+  PUSH 0
+  DUP1
+  REVERT
+tag 3
+  JUMPDEST
+  PUSH [tag] 4
+  PUSH 4
+  CALLDATALOAD
+  PUSH 24
+  CALLDATALOAD
+  PUSH [tag] 5
+  JUMP
+tag 4
+  JUMPDEST
+  PUSH 40
+  MLOAD
+  SWAP1
+  DUP2
+  MSTORE
+  PUSH 20
+  ADD
+  PUSH 40
+  MLOAD
+  DUP1
+  SWAP2
+  SUB
+  SWAP1
+  RETURN
+tag 5
+  JUMPDEST
+  DUP2
+  DUP2
+  ADD
+tag 6
+  JUMPDEST
+  SWAP3
+  SWAP2
+  POP
+  POP
+  JUMP [out]
+.data
+</pre>
+</div>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://localhost:3999/ethereum.slide#18 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Dissecting Ethereum</title>
+
+    <script async="" src="./2017-eitdigital-ethereum/analytics.js"></script><script src="./2017-eitdigital-ethereum/slides.js"></script>
+  <meta name="viewport" content="width=1100,height=750"><meta name="apple-mobile-web-app-capable" content="yes"></head>
+
+  <body style="display: none" class="loaded">
+
+    <section class="slides layout-widescreen">
+
+      <article>
+        <h1>Dissecting Ethereum</h1>
+        <h3 style="font-size: 40px; line-height: 40px;">Internals of a public blockchain</h3><br>
+        <h3>24 July 2017</h3><h3>EIT Digital, Budapest</h3><br><br>
+        <div class="presenter" style="position: absolute; bottom: 3em; left: 2em">
+
+
+
+  <p>
+    Péter Szilágyi
+  </p>
+
+
+
+
+
+  <p>
+    Ethereum Team Lead
+  </p>
+
+
+
+        </div>
+        <img src="./2017-eitdigital-ethereum/logo.png" width="128px" height="128px" style="position: absolute; bottom: 2em; right: 1em">
+      </article>
+
+
+
+      <article>
+
+        <h2>As seen by the world</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Decentralized computer network</h3>
+
+  <ul>
+
+    <li>Owned and operated by random people ⇔ no central authority or control</li>
+
+    <li>Assembled from various open source clients ⇔ security by public scrutiny</li>
+
+  </ul>
+<img src="./2017-eitdigital-ethereum/network_europe.jpg" style="position: absolute; left: 2em; top: 7.5em; width: 745px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2017-eitdigital-ethereum/network_us.jpg" style="position: absolute; right: 2em; top: 7.5em; width: 230px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2017-eitdigital-ethereum/network_china.jpg" style="position: absolute; right: 2em; top: 13.25em; width: 230px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2017-eitdigital-ethereum/network_south.jpg" style="position: absolute; right: 2em; top: 19em; width: 230px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<span style="position: absolute; left: 21em; bottom: 1.5em; font-size: 14px;">
+	Green ⇔ Geth | Orange ⇔ Parity | White ⇔ other
+</span>
+
+<span style="position: absolute; right: 4em; bottom: 1.5em; font-size: 14px;">
+	Download <a target="_blank" href="http://localhost:3999/ethereum/nodes.kmz">nodes.kmz</a> for Google Earth!
+</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Public for anyone to join</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Download and run your own node
+  </p>
+
+
+  <ul>
+
+    <li><a href="https://geth.ethereum.org/downloads/" target="_blank">Geth</a> (CLI), <a href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a> (UI), <a href="https://parity.io/parity.html" target="_blank">Parity</a> (WebUI)</li>
+
+    <li>Connect to main or test networks</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Phases of connecting to Ethereum
+  </p>
+
+
+  <ul>
+
+    <li>Discover peers via public bootnodes</li>
+
+    <li>Randomly connect peers to stabilize</li>
+
+    <li>Exchange data to uphold the system</li>
+
+  </ul>
+<img src="./2017-eitdigital-ethereum/join_discover.jpg" style="position: absolute; right: 4em; top: 4em; width: 500px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; right: 11.25em; bottom: 22em; font-size: 14px;">Connecting to bootnodes (Green ⇔ Geth | Orange ⇔ Parity | Blue ⇔ Cpp)</span>
+
+<img src="./2017-eitdigital-ethereum/join_connect.jpg" style="position: absolute; right: 2em; bottom: 2em; width: 500px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; right: 12.5em; bottom: 1.5em; font-size: 14px;">Randomly connecting to 25+ out of 24K peers</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>As seen by the machine</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Database of financial accounts</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+  <ul>
+
+    <li>Tracks all past versions of the data ⇔ publicly <b>auditable</b> historical records</li>
+
+    <li>Rooted at an immutable initial state ⇔ multiple global databases <b>co-exist</b></li>
+
+    <li>Modifications adhere to strict rulesets ⇔ balances <b>calculated</b>, not shared</li>
+
+  </ul>
+<img src="./2017-eitdigital-ethereum/genesis.png" style="position: absolute; left: 5em; bottom: 3em; width: 850px;">
+
+<span style="position: absolute; left: 15em; top: 18em; font-size: 20px;">July 30, 2015</span>
+<span style="position: absolute; left: 26.5em; top: 18em; font-size: 20px;">August 6, 2016</span>
+<span style="position: absolute; left: 39em; top: 18em; font-size: 20px;">July 20, 2017</span>
+
+<span style="position: absolute; left: 15.25em; top: 30.5em; font-size: 20px;">Version #0</span>
+<span style="position: absolute; left: 25.75em; top: 30.5em; font-size: 20px;">Version #2024344</span>
+<span style="position: absolute; left: 38em; top: 30.5em; font-size: 20px;">Version #4048689</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Updated from malicious computers</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+  <ul>
+
+    <li>Remote content is untrusted ⇔ operate on <b>signed</b> change requests</li>
+
+    <li>Requests are distributed in groups ⇔ generate <b>own</b> data version locally</li>
+
+    <li>Competing groups and versions happen ⇔ computers converge <b>eventually</b></li>
+
+  </ul>
+<img src="./2017-eitdigital-ethereum/block.png" style="position: absolute; right: 2em; top: 2.75em; width: 150px;">
+<img src="./2017-eitdigital-ethereum/sync.png" style="position: absolute; right: 8em; bottom: 1em; width: 700px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>As seen by the user</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Giberish account numbers</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    E.g. <a href="https://etherscan.io/address/0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359" target="_blank">0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359</a> 😱
+  </p>
+
+
+  <ul>
+
+    <li>Accounts are cryptographic keys ⇔ no username, no operator, <b>no recovery</b></li>
+
+    <li>Each key owns an associated address ⇔ without the key, funds are <b>lost forever</b></li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Accounts useful <i>only</i> to create transactions
+  </p>
+
+
+  <ul>
+
+    <li>Provide the details (recipient, amount, etc)</li>
+
+    <li>Digitally sign it (computer or hardware wallet)</li>
+
+    <li>Wait for the network to process the transaction</li>
+
+  </ul>
+<img src="./2017-eitdigital-ethereum/ledger.png" style="position: absolute; right: 4.5em; top: 3em; width: 200px;">
+<img src="./2017-eitdigital-ethereum/transaction.png" style="position: absolute; right: 3.5em; bottom: 2.25em; width: 300px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<span style="position: absolute; right: 8.75em; bottom: 1.5em; font-size: 14px;">Transaction signing via the Ethereum Wallet</span>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Special snowflakes ❄</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    E.g. <a href="https://etherscan.io/address/0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359" target="_blank">0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359</a>... again?! 😕
+  </p>
+
+
+  <ul>
+
+    <li>Accounts <b>can be programs</b> ⇔ <b>react</b> to events in the network</li>
+
+    <li>Programs do <b>not</b> have keys ⇔ operate <b>unstoppably</b> as coded</li>
+
+    <li>Does <b>everything</b> a user can ⇔ own, transact, <b>create</b> programs</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Who the heck thought this is a good idea?!
+  </p>
+
+<img src="./2017-eitdigital-ethereum/tron.jpg" style="position: absolute; right: 2em; top: 5.5em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="./2017-eitdigital-ethereum/eea.png" style="position: absolute; right: 3.5em; bottom: 1.5em; width: 900px;">
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>As seen by the developer</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Programmable global infrastructure</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Nodes run a custom <a href="https://ethereum.github.io/yellowpaper/paper.pdf" target="_blank">virtual machine</a>
+  </p>
+
+
+  <ul>
+
+    <li>Stack-based <b>bytecode</b> interpreter ⇔ multiple higher level languages</li>
+
+    <li>Transactions are VM <b>executions</b> ⇒ transfer, then <b>run</b> available code</li>
+
+    <li>Transactions carry <b>data</b> payload ⇒ user input and code deployment</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Resource consumption and the halting problem
+  </p>
+
+
+  <ul>
+
+    <li>Programs run in <b>varying</b> time ⇔ fees based on VM <b>instructions</b></li>
+
+    <li>Complexity up to <b>infinite</b> loops ⇔ <b>capped</b> maximum resource use</li>
+
+  </ul>
+<style>
+.semihidden {
+	opacity: 0.1;
+}
+.semihidden:hover {
+	opacity: 1.0;
+}
+</style>
+
+<div class="semihidden">
+<img src="./2017-eitdigital-ethereum/adder.png" style="position: absolute; right: 5em; top:2.25em; width: 300px;">
+<pre style="position: absolute; right: 6em; top: 7em; font-size: 8px; line-height: 9px;">.code
+  PUSH 60
+  PUSH 40
+  MSTORE
+  PUSH FFFFFFFF
+  PUSH 10..0
+  PUSH 0
+  CALLDATALOAD
+  DIV
+  AND
+  PUSH A5F3C23B
+  DUP2
+  EQ
+  PUSH [tag] 2
+  JUMPI
+tag 1
+  JUMPDEST
+  PUSH 0
+  DUP1
+  REVERT
+tag 2
+  JUMPDEST
+  CALLVALUE
+  ISZERO
+  PUSH [tag] 3
+  JUMPI
+  PUSH 0
+  DUP1
+  REVERT
+tag 3
+  JUMPDEST
+  PUSH [tag] 4
+  PUSH 4
+  CALLDATALOAD
+  PUSH 24
+  CALLDATALOAD
+  PUSH [tag] 5
+  JUMP
+tag 4
+  JUMPDEST
+  PUSH 40
+  MLOAD
+  SWAP1
+  DUP2
+  MSTORE
+  PUSH 20
+  ADD
+  PUSH 40
+  MLOAD
+  DUP1
+  SWAP2
+  SUB
+  SWAP1
+  RETURN
+tag 5
+  JUMPDEST
+  DUP2
+  DUP2
+  ADD
+tag 6
+  JUMPDEST
+  SWAP3
+  SWAP2
+  POP
+  POP
+  JUMP [out]
+.data
+</pre>
+</div>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Supporting user-friendly packaging</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+  <p>
+    Only through programs running <b>locally</b>
+  </p>
+
+
+  <ul>
+
+    <li><b>Directly</b> via the user's node ⇔ exposes a large <b>attack</b> surface</li>
+
+    <li><b>Indirectly</b> through wrappers ⇔ limited app <b>specific</b> features</li>
+
+    <li>Custom <b>embedded</b> own node ⇔ <b>ultimate</b> user experience</li>
+
+  </ul>
+<img src="./2017-eitdigital-ethereum/etheroll.png" style="position: absolute; left: 2em; bottom: 2.25em; height: 250px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 11.5em; bottom: 1.5em; font-size: 14px;">Etheroll running via the Chrome browser</span>
+
+<img src="./2017-eitdigital-ethereum/favornet.png" style="position: absolute; left: 20em; bottom: 2.25em; height: 250px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 36.75em; bottom: 1.5em; font-size: 14px;">Favor Network in Status chat</span>
+
+<img src="./2017-eitdigital-ethereum/akasha.jpg" style="position: absolute; right: 2em; bottom: 2.25em; height: 250px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; right: 8.5em; bottom: 1.5em; font-size: 14px;">Akasha social network standalone client</span>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+
+      </article>
+
+
+
+      <article>
+
+        <h2>As seen by the initiated</h2>
+
+      </article>
+
+
+
+      <article>
+
+        <h3>Network stats – Rinkeby Testnet –</h3>
+        <h3><a href="https://stats.rinkeby.io/" target="_blank" style="position: absolute; left: 17.5em; top: 1.35em;">https://stats.rinkeby.io/</a></h3>
+
+<img id="ethstats-static" src="./2017-eitdigital-ethereum/demo_ethstats.png" style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 8px;">
+<div id="ethstats-wrapper" hidden style="position: absolute; left: 2em; top: 4em; width: 1920px; height: 1018.18px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 16px; overflow: hidden; transform: scale(0.515625); transform-origin: 0px 0px 0px;">
+	<iframe id="ethstats" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	$("#ethstats").on('load', function() {
+		ethstatsResize(); $('#ethstats-wrapper').fadeIn(1000); $('#ethstats-static').fadeOut(1000);
+	});
+	$("#ethstats").attr('src', 'https://stats.rinkeby.io/');
+
+	var ethstatsResize = function() {
+		var scale = 990 / 1920;
+
+		$("#ethstats-wrapper").width(1920);
+		$("#ethstats-wrapper").height(525 / scale);
+		$("#ethstats-wrapper").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', ethstatsResize);
+</script>
+
+<span style="position: absolute; left: 25.75em; bottom: 1.5em; font-size: 14px;">
+	Your #1 source of information to see if your node is healthy
+</span>
+
+
+      </article>
+
+
+
+      <article class="far-past">
+
+        <h3>Blockchain stats – Rinkeby Testnet –</h3>
+        <h3><a href="https://rinkeby.etherscan.io/" target="_blank" style="position: absolute; left: 18.5em; top: 1.35em;">https://rinkeby.etherscan.io/</a></h3>
+
+<img id="etherscan-static" src="./2017-eitdigital-ethereum/demo_etherscan.png" style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 8px;">
+<div id="etherscan-wrapper" hidden style="position: absolute; left: 2em; top: 4em; width: 1180px; height: 625.758px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 9px; overflow: hidden; transform: scale(0.838983); transform-origin: 0px 0px 0px;">
+	<iframe id="etherscan" style="position: absolute; width: 1180px; height: 100%; border: none;"></iframe>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	$("#etherscan").on('load', function() {
+		etherscanResize(); $('#etherscan-wrapper').fadeIn(1000); $('#etherscan-static').fadeOut(1000);
+	});
+	$("#etherscan").attr('src', 'https://rinkeby.etherscan.io/');
+
+	var etherscanResize = function() {
+		var scale = 990 / 1180;
+
+		$("#etherscan-wrapper").width(1180);
+		$("#etherscan-wrapper").height(525 / scale);
+		$("#etherscan-wrapper").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', etherscanResize);
+</script>
+
+<span style="position: absolute; left: 26em; bottom: 1.5em; font-size: 14px;">
+	Your #1 source of information to see what's in the blockchain
+</span>
+
+
+      </article>
+
+
+
+      <article class="past">
+
+        <h2>As seen by the guru</h2>
+
+      </article>
+
+
+
+      <article class="current">
+
+        <h3>Gas dynamics – Ethereum Mainnet –</h3>
+        <h3><a href="http://ethgasstation.info/" target="_blank" style="position: absolute; left: 18.5em; top: 1.35em;">http://ethgasstation.info/</a></h3>
+
+<img id="ethgasstation-static" src="./2017-eitdigital-ethereum/demo_ethgasstation.png" style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 8px;">
+<div id="ethgasstation-wrapper" hidden style="position: absolute; left: 2em; top: 4em; width: 1600px; height: 848.485px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 9px; overflow: hidden; transform: scale(0.61875); transform-origin: 0px 0px 0px;">
+	<iframe id="ethgasstation" style="position: absolute; width: 1600px; height: 100%; border: none;"></iframe>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	$("#ethgasstation").on('load', function() {
+		ethgasstationResize(); $('#ethgasstation-wrapper').fadeIn(1000); $('#ethgasstation-static').fadeOut(1000);
+	});
+	$("#ethgasstation").attr('src', 'http://ethgasstation.info/');
+
+	var ethgasstationResize = function() {
+		var scale = 990 / 1600;
+
+		$("#ethgasstation-wrapper").width(1600);
+		$("#ethgasstation-wrapper").height(525 / scale);
+		$("#ethgasstation-wrapper").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', ethgasstationResize);
+</script>
+
+
+      </article>
+
+
+
+      <article class="next">
+
+        <h3>Touchy questions</h3>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+
+  <ul>
+
+    <li>Is Ethereum user friendly? Not yet, it is complex and easy to misuse!</li>
+
+    <li>Is Ethereum developer friendly? Not yet, the tools and docs are lacking!</li>
+
+    <li>Is Ethereum computer friendly? So-so, it requires bandwidth and capacity!</li>
+
+    <li>Is Ethereum environment friendly? Well, it uses more electricity than Cyprus!</li>
+
+    <li>Is Ethereum privacy friendly? Not yet, the balances and transactions are public!</li>
+
+    <li>Is Ethereum law friendly? So-so, regulatory bodies are watching from the sideline!</li>
+
+  </ul>
+
+<div class="image">
+  <img src="./2017-eitdigital-ethereum/whitespace.png">
+</div>
+<span style="position: absolute; left: 10.5em; bottom: 1.5em; font-size: 14px;">
+	<a href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a>,
+	<a href="https://metamask.io/" target="_blank">Metamask</a>,
+	<a href="https://status.im/" target="_blank">Status</a> |
+	<a href="https://remix.ethereum.org/" target="_blank">Remix</a>,
+	<a href="http://truffleframework.com/" target="_blank">Truffle</a>,
+	<a href="https://www.rinkeby.io/" target="_blank">Rinkeby</a> |
+	<a href="https://github.com/ethereum/wiki/wiki/Sharding-FAQ" target="_blank">Sharding</a>,
+	<a href="https://github.com/ethereum/wiki/wiki/Light-client-protocol" target="_blank">Light client</a> |
+	<a href="https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ" target="_blank">Proof of Stake</a> |
+	<a href="https://media.consensys.net/introduction-to-zksnarks-with-examples-3283b554fc3b" target="_blank">Zero knowledge proofs</a> |
+	<a href="https://ec.europa.eu/digital-single-market/en/news/pre-information-notice-eu-blockchain-observatory-forum" target="_blank">EU Blockchain Observatory</a>
+</span>
+
+
+      </article>
+
+
+
+      <article class="far-next">
+        <h3>Thank you</h3>
+
+          <div class="presenter">
+
+
+  <p>
+    Péter Szilágyi
+  </p>
+
+<p class="link"><a href="mailto:peter@ethereum.org" target="_blank">peter@ethereum.org</a></p><p class="link"><a href="http://twitter.com/peter_szilagyi" target="_blank">@peter_szilagyi</a></p>
+          </div>
+
+          <div class="presenter">
+
+
+  <p>
+    Ethereum Team Lead
+  </p>
+
+<p class="link"><a href="https://ethereum.org/" target="_blank">https://ethereum.org/</a></p>
+          </div>
+
+        <img src="./2017-eitdigital-ethereum/mascot.png" width="192px" style="position: absolute; bottom: 2em; right: 2.5em">
+      </article>
+
+    <div class="slide-area" id="prev-slide-area"></div><div class="slide-area" id="next-slide-area"></div></section>
+
+    <div id="help" style="display: none;">
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press 'H' or navigate to hide this message.)
+    </div>
+
+
+    <script src="./2017-eitdigital-ethereum/play.js"></script>
+
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76391520-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+<link rel="stylesheet" type="text/css" href="./2017-eitdigital-ethereum/fonts.css"><link rel="stylesheet" type="text/css" href="./2017-eitdigital-ethereum/styles.css"></body></html>

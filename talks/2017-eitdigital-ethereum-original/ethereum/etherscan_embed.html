@@ -1,0 +1,31 @@
+<h3><a href="https://rinkeby.etherscan.io/" target="_blank" style="position: absolute; left: 18.5em; top: 1.35em;">https://rinkeby.etherscan.io/</a></h3>
+
+<img id="etherscan-static" src="ethereum/demo_etherscan.png" style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;"/>
+<div id="etherscan-wrapper" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 525px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="etherscan" style="position: absolute; width: 1180px; height: 100%; border: none;"></iframe>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	$("#etherscan").on('load', function() {
+		etherscanResize(); $('#etherscan-wrapper').fadeIn(1000); $('#etherscan-static').fadeOut(1000);
+	});
+	$("#etherscan").attr('src', 'https://rinkeby.etherscan.io/');
+
+	var etherscanResize = function() {
+		var scale = 990 / 1180;
+
+		$("#etherscan-wrapper").width(1180);
+		$("#etherscan-wrapper").height(525 / scale);
+		$("#etherscan-wrapper").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', etherscanResize);
+</script>
+
+<span style="position: absolute; left: 26em; bottom: 1.5em; font-size: 14px;">
+	Your #1 source of information to see what's in the blockchain
+</span>

@@ -1,0 +1,163 @@
+Dissecting Ethereum
+Internals of a public blockchain
+24 Jul 2017
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Team Lead
+https://ethereum.org/
+
+* As seen by the world
+
+* Decentralized computer network
+
+- Owned and operated by random people ⇔ no central authority or control
+- Assembled from various open source clients ⇔ security by public scrutiny
+
+.html ethereum/network_embed.html
+
+* Public for anyone to join
+
+.image ethereum/whitespace.png
+
+Download and run your own node
+
+- [[https://geth.ethereum.org/downloads/][Geth]] (CLI), [[https://github.com/ethereum/mist/releases][Mist]] (UI), [[https://parity.io/parity.html][Parity]] (WebUI)
+- Connect to main or test networks
+
+.image ethereum/whitespace.png
+
+Phases of connecting to Ethereum
+
+- Discover peers via public bootnodes
+- Randomly connect peers to stabilize
+- Exchange data to uphold the system
+
+.html ethereum/join_embed.html
+
+* As seen by the machine
+
+* Database of financial accounts
+
+.image ethereum/whitespace.png
+
+- Tracks all past versions of the data ⇔ publicly *auditable* historical records
+- Rooted at an immutable initial state ⇔ multiple global databases *co-exist*
+- Modifications adhere to strict rulesets ⇔ balances *calculated*, not shared
+
+.html ethereum/genesis_embed.html
+
+* Updated from malicious computers
+
+.image ethereum/whitespace.png
+
+- Remote content is untrusted ⇔ operate on *signed* change requests
+- Requests are distributed in groups ⇔ generate *own* data version locally
+- Competing groups and versions happen ⇔ computers converge *eventually*
+
+.html ethereum/sync_embed.html
+
+* As seen by the user
+
+* Giberish account numbers
+
+.image ethereum/whitespace.png
+
+E.g. [[https://etherscan.io/address/0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359][0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359]] 😱
+
+- Accounts are cryptographic keys ⇔ no username, no operator, *no*recovery*
+- Each key owns an associated address ⇔ without the key, funds are *lost*forever*
+
+.image ethereum/whitespace.png
+
+Accounts useful _only_ to create transactions
+
+- Provide the details (recipient, amount, etc)
+- Digitally sign it (computer or hardware wallet)
+- Wait for the network to process the transaction
+
+.html ethereum/accounts_embed.html
+
+* Special snowflakes ❄
+
+.image ethereum/whitespace.png
+
+E.g. [[https://etherscan.io/address/0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359][0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359]]... again?! 😕
+
+- Accounts *can*be*programs* ⇔ *react* to events in the network
+- Programs do *not* have keys ⇔ operate *unstoppably* as coded
+- Does *everything* a user can ⇔ own, transact, *create* programs
+
+.image ethereum/whitespace.png
+
+Who the heck thought this is a good idea?!
+
+.html ethereum/contracts_embed.html
+
+* As seen by the developer
+
+* Programmable global infrastructure
+
+.image ethereum/whitespace.png
+
+Nodes run a custom [[https://ethereum.github.io/yellowpaper/paper.pdf][virtual machine]]
+
+- Stack-based *bytecode* interpreter ⇔ multiple higher level languages
+- Transactions are VM *executions* ⇒ transfer, then *run* available code
+- Transactions carry *data* payload ⇒ user input and code deployment
+
+.image ethereum/whitespace.png
+
+Resource consumption and the halting problem
+
+- Programs run in *varying* time ⇔ fees based on VM *instructions*
+- Complexity up to *infinite* loops ⇔ *capped* maximum resource use
+
+.html ethereum/evm_embed.html
+
+* Supporting user-friendly packaging
+
+.image ethereum/whitespace.png
+
+Only through programs running *locally*
+
+- *Directly* via the user's node ⇔ exposes a large *attack* surface
+- *Indirectly* through wrappers ⇔ limited app *specific* features
+- Custom *embedded* own node ⇔ *ultimate* user experience
+
+.html ethereum/integration_embed.html
+
+.image ethereum/whitespace.png
+
+* As seen by the initiated
+
+* Network stats – Rinkeby Testnet –
+
+.html ethereum/ethstats_embed.html
+
+* Blockchain stats – Rinkeby Testnet –
+
+.html ethereum/etherscan_embed.html
+
+* As seen by the guru
+
+* Gas dynamics – Ethereum Mainnet –
+
+.html ethereum/ethgasstation_embed.html
+
+* Touchy questions
+
+.image ethereum/whitespace.png
+
+- Is Ethereum user friendly? Not yet, it is complex and easy to misuse!
+- Is Ethereum developer friendly? Not yet, the tools and docs are lacking!
+- Is Ethereum computer friendly? So-so, it requires bandwidth and capacity!
+- Is Ethereum environment friendly? Well, it uses more electricity than Cyprus!
+- Is Ethereum privacy friendly? Not yet, the balances and transactions are public!
+- Is Ethereum law friendly? So-so, regulatory bodies are watching from the sideline!
+
+.image ethereum/whitespace.png
+
+.html ethereum/cheat_sheet.html
