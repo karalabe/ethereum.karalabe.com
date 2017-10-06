@@ -1,0 +1,123 @@
+Anno 2009*
+Egy új világ teremtése
+7 Oct 2017
+
+Szilágyi Péter
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Team Lead
+https://ethereum.org/
+
+* Yap szigete – "Misztikus föld ahol malomkő a pénznem"
+
+.html anno2009/yap_embed.html
+
+* Hogyan lehet mészkő fizetőeszköz?
+
+- Korlátozott mennyiség ⇔ érték tárolás
+- Közösségi használat ⇔ érték teremtés
+
+.html anno2009/scarcity_embed.html
+
+* Több tonnás "érmék" a gyakorlatban?
+
+.image anno2009/whitespace.png
+
+Tranzakcionálás hetente a faluközpontban
+
+- Nyilvánosan átruházták a kövek *tulajdonjogát*
+- *Mindenki*tudta* melyik kő kinek a tulajdona
+- A kövek soha *nem*mozdultak* helyükről ¹
+
+.image anno2009/whitespace.png
+
+Modern pénznemmel vetekedik
+
+- Érték és tulajdonjog szétválasztása
+- Megbízott harmadik fél szükségtelensége ²
+
+.html anno2009/rai_embed.html
+
+* Bitcoin – Digitális malomkövek
+
+- Szoftver irányította virtuális pénz ⇒ korlátozott mennyiség ⇒ érték tárolás
+- Internet alapú virtuális közösség ⇒ globális együttműködés ⇒ decentralizálás
+
+.html anno2009/network_embed.html
+
+* Lehet-e értéke digitális malomkőnek?
+
+.image anno2009/whitespace.png
+
+- Gyors ⇒ tranzakció átfutása 10 – 30 perc világszinten bárhova
+- Olcsó ⇒ tranzakció költsége 3 – 5 dollár mérettől függetlenül
+- Nyílt ⇒ egyetlen országnak sincs elég joghatása beleszólni*
+
+.html anno2009/bitcoin_embed.html
+
+* Érdekes... de miért olyan ijesztő?
+
+.image anno2009/whitespace.png
+
+Bitcoin "csak" egy globális malomkőrendszer*
+
+- Adatbázis ⇒ kinek mekkora mennyisége van
+- Szabályok ⇒ hogyan modosíthatóak a számlák
+
+.image anno2009/whitespace.png
+
+Ethereum *közös*, globális számítógép
+
+- Adatbázis ⇒ rugalmas, bármit tárolhat
+- Szabályok ⇒ rugalmas, bármit szabhatnak
+
+.html anno2009/blockchain_embed.html
+
+* Miért ijesztő? Mert megszűnnek a közvetítők!
+
+.image anno2009/whitespace.png
+
+[[https://slock.it/usn.html][Slock.It]] – Közösségi gazdaság
+
+- Bárki bárkinek bérbeadhat bármi zárhatót
+- Rendszer által nyitható és zárható okoszárak
+- Két fél között közvetlenül, megbízott fél nélkül
+
+.html anno2009/slock_embed.html
+
+* Miért ijesztő? Mert maroknyi ember kihívja az óriásvállalatokat!
+
+.image anno2009/whitespace.png
+
+[[https://etherisc.com/][Etherisc]] – Repülőjáratok késése elleni biztosítás
+
+- Bárki, bárhonnan a világon biztosítást köthet
+- Rendszer automatikusan fizet ha késett a gép
+- Teljes csapat mérete a rendszer indításakor *2*fő*
+
+.html anno2009/etherisc_embed.html
+
+* Miért ijesztő? Mert végérvényesen cenzúrázhatatlan!
+
+.image anno2009/whitespace.png
+
+[[http://e-vox.org/][E-Vox]] – Választási szavazóplatform
+
+- Bárhonnan részt lehet venni a szavazáson
+- Rendszer garantálja a folyamat tiszta leforgását
+- Ukrán parlament kisválasztásokra [[https://bitcoinmagazine.com/articles/ukraine-government-plans-to-trial-ethereum-blockchain-based-election-platform-1455641691/][próbálja alkalmazni]]
+
+.html anno2009/voting_embed.html
+
+* Ugyanakkor forradalmi megoldásokat tesz lehetővé
+
+.image anno2009/whitespace.png
+
+- [[https://www.civic.com/][Civic]] és [[https://www.uport.me/][uPort]] – Önálló szuverén identitások
+- [[https://aragon.one/][Aragon]] – Digitális szervezetek és kormányzás
+- [[https://brave.com/][Brave]] és [[https://basicattentiontoken.org/][BAT]] – Felhasználóknak fizető reklámok
+- [[https://swarm.city/][Swarm City]] és [[https://arcade.city/][Arcade City]] – Központmentes Über
+- [[https://raiden.network/][Raiden]] és [[http://plasma.io/plasma.pdf][Plasma]] – Valós idejű pénzügyi tranzakciók
+
+.html anno2009/epilogue_embed.html

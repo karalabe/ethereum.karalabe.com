@@ -1,0 +1,252 @@
+3. felvonás: Blokkláncok
+Avagy a bizalomközvetítők elavulása 😈
+8 Apr 2016
+Tags: foo, bar, baz
+
+Szilágyi Péter
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Core Developer
+https://ethereum.org/
+
+* I. Felvonás – 1970 IBM
+
+* Számítástechnika születése
+
+.html ethereum/mainframe_embed.html
+
+.image ethereum/whitespace.png
+
+_Hatalmas_vasak_ világa
+
+- Pörgő szalagmeghajtó szekrények
+- Nyakkendős karbantartók serege
+- Digitális adattárolás kialakulása
+.image ethereum/whitespace.png
+
+.image ethereum/whitespace.png
+
+*Óriás* cégek *legfontosabb* adatainak *beláthatatlan* összegekért való tárolása.
+
+* Torzított valóság születése... hogy mi? 😕
+
+.image ethereum/whitespace.png
+
+Valós világ táblázatokba erőltetése
+
+- Relációs adatmodell és SQL eredete
+- Tudásmenedzsment és szemantikus hálók
+- Nem ábrázolható táblázatban? *Akkor*nem*létezik!*
+
+.image ethereum/whitespace.png
+
+Fél évszázad fájdalmas hagyatéka...
+
+.html ethereum/contract_embed.html
+
+- Formanyomtatvány? Egy adatbázis táblázata!
+- Facebook, WhatsApp, Google? Adatbázisok!
+- RDS nem érti miért nincs net? Adatbázis!
+
+* II. Felvonás – 1990 Tim Berners-Lee
+
+* Világháló születése – A hálózat a számítógép ~Sun Microsystems
+
+.image ethereum/whitespace.png
+
+Számítógépek hálózatokba szervezése
+
+- Egyetemek, cégek, magánemberek; önszerveződve
+- Protokollok megjelenése: Telnet, E-mail, HTTP
+- Esetlegestől állandósult kapcsolatokig
+
+.image ethereum/whitespace.png
+
+_Tárgyak_internetének_ kialakulása
+
+- Egyre kisebb, olcsóbb és okosabb komponensek
+- Mindent átható jelenlét (pl. okos égők)
+
+.html ethereum/lifx_embed.html
+
+* Két világ összecsapása 💥
+
+.html ethereum/worlds_embed.html
+
+.image ethereum/whitespace.png
+
+Több adatbázis együttműködése
+
+- Láthatatlan adatáramlás cégek között
+- Felhasználó érdekeinek képviselése
+- Implicit kapcsolat saját gépeinkkel
+
+.image ethereum/whitespace.png
+
+Jelen gépeink? _Drága_papírszimulátorok..._
+
+- Adatbázisok tulajdonosaik képmásai
+- Formanyomtatványok mint kapcsolatok
+- Együttműködés túl drága, túl bürokratikus
+
+* Kössük össze az adatbázisokat! (ahm, nem...)
+
+.html ethereum/whatcangowrong_embed.html
+
+.image ethereum/whitespace.png
+
+Keresztbe kapcsoljuk, "oszt müxik"
+
+- Szervezet saját adatbázisa? *Abszolút*igazság*
+- Másik fél adatbázisa? *Véleménynyilvánítás*
+- Kommunikáció spekulációra redukálódik
+
+.image ethereum/whitespace.png
+
+Használhatatlan instabilitás
+
+- Apró változtatás észrevétlen hibát eredményezhet
+- Gondolkodásmód-beli eltérések, félreértések
+- Exponenciálisan növekvő hibalehetőségek
+
+* Központosítsuk együttműködéseinket! (ó, jaj...)
+
+.image ethereum/whitespace.png
+
+.html ethereum/mediator_embed.html
+
+Egy mindenki által megbízott fél közvetítése
+
+- Egyetlen standard, mindenki beszéli (PayPal)
+- Önkéntesen előállított *természetes*monopólium*
+- Semleges közvetítő helyett politikai és pénzügyi szörny
+
+.image ethereum/whitespace.png
+
+Kiadtuk magán-, professzionális és pénzügyi életünket. De infrastruktúránkat is!
+
+* III. Felvonás – 2008 Blokkláncok
+
+* Bitcoin – 11.4 milliárd dolláros véletlen  – Internet központi bankja
+
+.image ethereum/whitespace.png
+
+.html ethereum/bitcoin_embed.html
+
+Akadémiai kísérlet globális konszenzusra
+
+- Peer-to-peer adatbázis, ami előbb-utóbb konvergál
+- Minden résztvevő egyenlően megbízhatatlan
+- Jobban megéri segíteni, mint támadni (!)
+
+.image ethereum/whitespace.png
+
+Miért pont pénzügy? Kézzelfogható, közérthető
+
+- Globális adatbázis, hogy kinek mennyi pénze van
+- Mégis csak a tulajdonos kezelheti saját pénzét
+
+* Bitcoin klónok, színes érmék
+
+.image ethereum/whitespace.png
+
+.html ethereum/altcoins_embed.html
+
+A bitcoin fantasztikus sikert aratott
+
+- Beláthatatlan sok másolat született
+- Rengeteg módosított protokoll létrejött
+- Hasznosak, de megbízhatatlanok: *túl*kicsik*
+
+.image ethereum/whitespace.png
+
+Az egymilliárdos kérdés: _Össze_lehetne-e_rakni_őket_egyetlen_hálózatba?_
+
+- Általános, alkalmazásfüggetlen adattárolás (megoldható)
+- Mindegyiket magában foglaló protokoll (őőő...)
+
+* 2015 Ethereum – Programozható blokklánc
+
+.image ethereum/whitespace.png
+
+.html ethereum/geth_embed.html
+
+Világ egyetlen globális számítógépe
+
+- Tökéletes gép: nem hibázik, nem áll le
+- Univerzálisan elérhető: bárkinek, bárhonnan
+- Feltörésbiztos: befolyásolhatatlan, cenzúrázhatatlan
+
+.image ethereum/whitespace.png
+
+De mire jó? 😅
+
+- Ismeretlen felek közti áthághatatlan egyezségek
+- Harmadik fél által megakadályozhatatlan együttműködések
+
+* Példa – Közösségi finanszírozás
+
+.image ethereum/whitespace.png
+
+.html ethereum/crowdfunding_embed.html
+
+Idegenektől pénzgyűjtés saját projektre
+
+- Meghirdetünk egy gyűjtést fix időkerettel
+- Ha összegyűl a teljes összeg, megkapjuk
+- Ha nem, mindenki visszakapja a sajátját
+
+.image ethereum/whitespace.png
+
+Apró programozott szerződés (az ni ⇒)
+
+- Nincs köztes fél, aki kezelési díjat szedjen
+- Elég a helyi jogszabályoknak megfelelni
+- Egyértelmű és garantált a végkimenet
+
+* Példa – Arcade City
+
+.image ethereum/whitespace.png
+
+Blokklánc alapú taxiszolgáltatás
+
+- Kliensek taxit egy letéttel tudnak hívni
+- Menet közben mikro-tranzakciókkal fizetnek
+- Egymástól védett felek, bárki megszakíthatja az utat
+
+.html ethereum/arcadecity_embed.html
+
+* Példa – Ujo Music
+
+.image ethereum/whitespace.png
+.image ethereum/whitespace.png
+.image ethereum/whitespace.png
+.image ethereum/whitespace.png
+.image ethereum/whitespace.png
+
+Blokklánc alapú zenekiadó
+
+- Zeneszámnak saját alkotólistája
+- Hozzájárulók jutalmazva letöltésenkként
+- Mindeki védve egymástól és garantáltan kifizetve
+
+.html ethereum/ujomusic_embed.html
+
+* Példa – Provenance
+
+.image ethereum/whitespace.png
+
+Blokklánc alapú eredetkövetés
+
+- Termékek nyilvános bejegyezése
+- Egyedi és rejtett kódos felcímkézése
+- Termelésilánc alkotóelemeire bontható
+
+.image ethereum/whitespace.png
+
+Minden fél egymástól védett
+
+- Termelőnek nyílvános
+
+.html ethereum/provenance_embed.html
