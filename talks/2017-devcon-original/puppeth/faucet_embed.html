@@ -1,0 +1,165 @@
+<button onclick="loadDeadFaucet()" style="position: absolute; right: 39em; bottom: 4em; cursor: pointer;">$ puppeth --network=devcon (demo)</button>
+<button onclick="loadDeadFaucetPage()" style="position: absolute; right: 21.5em; bottom: 4em; cursor: pointer;">http://faucet.devcon.network (demo)</button>
+<button onclick="loadDeadFaucetStatusPage()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">http://stats.devcon.network (demo)</button>
+
+<button onclick="loadLiveFaucet()" style="position: absolute; right: 38.5em; bottom: 6em; cursor: pointer;">$ puppeth --network=devcon (live)</button>
+<button onclick="loadLiveFaucetPage()" style="position: absolute; right: 22em; bottom: 6em; cursor: pointer;">http://faucet.devcon.network (live)</button>
+<button onclick="loadLiveFaucetStatusPage()" style="position: absolute; right: 6em; bottom: 6em; cursor: pointer;">http://stats.devcon.network (live)</button>
+
+<div id="faucet-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="faucet" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeFaucet()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<span id="faucet-iframe-aid" hidden style="position: absolute; left: 5em; bottom: 2.5em; font-size: 10px; line-height: 10px;">
+	{"address":"f18ab66f095bff24a6de4fcd0bbcf00f655a2244","crypto":{"cipher":"aes-128-ctr","ciphertext":"805ef7beb9412232a74e0bfcdbf9e7453fb4e3b4f82e9dc82c281ab626aac4f2","cipherparams":{"iv":"4e4f8f2f9a633f8410d52cd45055fee9"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"174fad840d15214f32b76d2222987d2ea0462e1d49e2d7dfbe747c73930d5e88"},"mac":"f72c4d936d4fac85db312bbef482cc06be4f2a263506c241185435673089a31f"},"id":"53b966b2-dfb3-478f-89af-0b8c5f51331b","version":3}
+</span>
+
+<div id="faucet-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="faucet-1" src="puppeth/faucet_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-2" src="puppeth/faucet_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-3" src="puppeth/faucet_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-4" src="puppeth/faucet_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-5" src="puppeth/faucet_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-6" src="puppeth/faucet_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-7" src="puppeth/faucet_7.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-8" src="puppeth/faucet_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-9" src="puppeth/faucet_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-10" src="puppeth/faucet_10.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-11" src="puppeth/faucet_11.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-12" src="puppeth/faucet_12.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-13" src="puppeth/faucet_13.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-14" src="puppeth/faucet_14.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-15" src="puppeth/faucet_15.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-16" src="puppeth/faucet_16.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="faucet-17" src="puppeth/faucet_17.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardFaucet()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="faucet-counter" type="text" value="1 / 17" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardFaucet()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeFaucet()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="faucet-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="faucet-page" style="position: absolute; width: 1440px; height: 100%; border: none;"></iframe>
+	<button onclick="closeFaucetPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="faucet-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/faucet.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeFaucetPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="faucet-status-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="faucet-status-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeFaucetStatusPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="faucet-status-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/faucet_status.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeFaucetStatusPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var faucetResize = function() {
+		var scale = 990 / 1300;
+
+		$("#faucet-iframe").width(1300);
+		$("#faucet-iframe").height(544 / scale);
+		$("#faucet-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', faucetResize);
+
+	var faucetSS = 1;
+	var loadDeadFaucet = function() {
+		$('#faucet-playback').fadeIn(1000);
+	}
+	var forwardFaucet = function() {
+		if (faucetSS < 17) {
+			$('#faucet-' + ++faucetSS).toggle();
+			$('#faucet-counter').val(faucetSS + " / 17");
+		}
+	}
+	var backwardFaucet = function() {
+		if (faucetSS > 1) {
+			$('#faucet-' + faucetSS--).toggle();
+			$('#faucet-counter').val(faucetSS + " / 17");
+		}
+	}
+	var loadLiveFaucet = function() {
+		$("#faucet").on('load', function() {
+			faucetResize(); $('#faucet-iframe').fadeIn(1000); $('#faucet-iframe-aid').fadeIn(1000);
+		});
+		$("#faucet").attr('src', 'http://localhost:8080/?arg=--network&arg=devcon');
+	}
+	var closeFaucet = function() {
+		$("#faucet").off('load');
+		$('#faucet-iframe').fadeOut(1000, function() {
+			$("#faucet").attr('src', '');
+		});
+		$('#faucet-iframe-aid').fadeOut(1000);
+		$('#faucet-playback').fadeOut(1000);
+	}
+
+	var faucetPageResize = function() {
+		var scale = 990 / 1440;
+
+		$("#faucet-page-iframe").width(1440);
+		$("#faucet-page-iframe").height(544 / scale);
+		$("#faucet-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', faucetResize);
+
+	var loadDeadFaucetPage = function() {
+		$('#faucet-page-playback').fadeIn(1000);
+	}
+	var loadLiveFaucetPage = function() {
+		$("#faucet-page").on('load', function() {
+			faucetPageResize(); $('#faucet-page-iframe').fadeIn(1000);
+		});
+		$("#faucet-page").attr('src', 'http://faucet.devcon.network');
+	}
+	var closeFaucetPage = function() {
+		$("#faucet-page").off('load');
+		$('#faucet-page-iframe').fadeOut(1000, function() {
+			$("#faucet-page").attr('src', '');
+		});
+		$('#faucet-page-playback').fadeOut(1000);
+	}
+
+	var faucetStatusPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#faucet-status-page-iframe").width(1920);
+		$("#faucet-status-page-iframe").height(544 / scale);
+		$("#faucet-status-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', faucetResize);
+
+	var loadDeadFaucetStatusPage = function() {
+		$('#faucet-status-page-playback').fadeIn(1000);
+	}
+	var loadLiveFaucetStatusPage = function() {
+		$("#faucet-status-page").on('load', function() {
+			faucetStatusPageResize(); $('#faucet-status-page-iframe').fadeIn(1000);
+		});
+		$("#faucet-status-page").attr('src', 'http://stats.devcon.network');
+	}
+	var closeFaucetStatusPage = function() {
+		$("#faucet-status-page").off('load');
+		$('#faucet-status-page-iframe').fadeOut(1000, function() {
+			$("#faucet-status-page").attr('src', '');
+		});
+		$('#faucet-status-page-playback').fadeOut(1000);
+	}
+</script>

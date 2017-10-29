@@ -1,0 +1,159 @@
+<button onclick="loadDeadWallet()" style="position: absolute; right: 39em; bottom: 4em; cursor: pointer;">$ puppeth --network=devcon (demo)</button>
+<button onclick="loadDeadWalletPage()" style="position: absolute; right: 21.5em; bottom: 4em; cursor: pointer;">http://wallet.devcon.network (demo)</button>
+<button onclick="loadDeadWalletStatusPage()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">http://stats.devcon.network (demo)</button>
+
+<button onclick="loadLiveWallet()" style="position: absolute; right: 38.5em; bottom: 6em; cursor: pointer;">$ puppeth --network=devcon (live)</button>
+<button onclick="loadLiveWalletPage()" style="position: absolute; right: 22em; bottom: 6em; cursor: pointer;">http://wallet.devcon.network (live)</button>
+<button onclick="loadLiveWalletStatusPage()" style="position: absolute; right: 6em; bottom: 6em; cursor: pointer;">http://stats.devcon.network (live)</button>
+
+<div id="wallet-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="wallet" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeWallet()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="wallet-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="wallet-1" src="puppeth/wallet_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-2" src="puppeth/wallet_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-3" src="puppeth/wallet_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-4" src="puppeth/wallet_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-5" src="puppeth/wallet_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-6" src="puppeth/wallet_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-7" src="puppeth/wallet_7.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-8" src="puppeth/wallet_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-9" src="puppeth/wallet_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-10" src="puppeth/wallet_10.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="wallet-11" src="puppeth/wallet_11.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardWallet()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="wallet-counter" type="text" value="1 / 11" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardWallet()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeWallet()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="wallet-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="wallet-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeWalletPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<span id="wallet-page-aid" hidden style="position: absolute; left: 4em; bottom: 1.5em; font-size: 14px;">
+	Demo: 0xf18ab66f095bff24a6de4fcd0bbcf00f655a2244
+</span>
+
+<div id="wallet-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/wallet.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeWalletPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="wallet-status-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="wallet-status-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeWalletStatusPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="wallet-status-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/wallet_status.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeWalletStatusPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var walletResize = function() {
+		var scale = 990 / 1300;
+
+		$("#wallet-iframe").width(1300);
+		$("#wallet-iframe").height(544 / scale);
+		$("#wallet-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', walletResize);
+
+	var walletSS = 1;
+	var loadDeadWallet = function() {
+		$('#wallet-playback').fadeIn(1000);
+	}
+	var forwardWallet = function() {
+		if (walletSS < 11) {
+			$('#wallet-' + ++walletSS).toggle();
+			$('#wallet-counter').val(walletSS + " / 11");
+		}
+	}
+	var backwardWallet = function() {
+		if (walletSS > 1) {
+			$('#wallet-' + walletSS--).toggle();
+			$('#wallet-counter').val(walletSS + " / 11");
+		}
+	}
+	var loadLiveWallet = function() {
+		$("#wallet").on('load', function() {
+			walletResize(); $('#wallet-iframe').fadeIn(1000);
+		});
+		$("#wallet").attr('src', 'http://localhost:8080/?arg=--network&arg=devcon');
+	}
+	var closeWallet = function() {
+		$("#wallet").off('load');
+		$('#wallet-iframe').fadeOut(1000, function() {
+			$("#wallet").attr('src', '');
+		});
+		$('#wallet-playback').fadeOut(1000);
+	}
+
+	var walletPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#wallet-page-iframe").width(1920);
+		$("#wallet-page-iframe").height(544 / scale);
+		$("#wallet-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', walletResize);
+
+	var loadDeadWalletPage = function() {
+		$('#wallet-page-playback').fadeIn(1000);
+	}
+	var loadLiveWalletPage = function() {
+		$("#wallet-page").on('load', function() {
+			walletPageResize(); $('#wallet-page-iframe').fadeIn(1000); $('#wallet-page-aid').fadeIn(1000);
+		});
+		$("#wallet-page").attr('src', 'http://wallet.devcon.network');
+	}
+	var closeWalletPage = function() {
+		$("#wallet-page").off('load');
+		$('#wallet-page-iframe').fadeOut(1000, function() {
+			$("#wallet-page").attr('src', '');
+		});
+		$('#wallet-page-aid').fadeOut(1000);
+		$('#wallet-page-playback').fadeOut(1000);
+	}
+
+	var walletStatusPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#wallet-status-page-iframe").width(1920);
+		$("#wallet-status-page-iframe").height(544 / scale);
+		$("#wallet-status-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', walletResize);
+
+	var loadDeadWalletStatusPage = function() {
+		$('#wallet-status-page-playback').fadeIn(1000);
+	}
+	var loadLiveWalletStatusPage = function() {
+		$("#wallet-status-page").on('load', function() {
+			walletStatusPageResize(); $('#wallet-status-page-iframe').fadeIn(1000);
+		});
+		$("#wallet-status-page").attr('src', 'http://stats.devcon.network');
+	}
+	var closeWalletStatusPage = function() {
+		$("#wallet-status-page").off('load');
+		$('#wallet-status-page-iframe').fadeOut(1000, function() {
+			$("#wallet-status-page").attr('src', '');
+		});
+		$('#wallet-status-page-playback').fadeOut(1000);
+	}
+</script>

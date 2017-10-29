@@ -1,0 +1,138 @@
+<button onclick="loadDeadDashboard()" style="position: absolute; right: 19em; bottom: 4em; cursor: pointer;">$ puppeth --network=devcon (demo)</button>
+<button onclick="loadDeadDashboardPage()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">http://devcon.network (demo)</button>
+
+<button onclick="loadLiveDashboard()" style="position: absolute; right: 19em; bottom: 6em; cursor: pointer;">$ puppeth --network=devcon (live)</button>
+<button onclick="loadLiveDashboardPage()" style="position: absolute; right: 5.5em; bottom: 6em; cursor: pointer;">http://devcon.network (live)</button>
+
+<div id="dashboard-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="dashboard" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeDashboard()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="dashboard-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="dashboard-1" src="puppeth/dashboard_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-2" src="puppeth/dashboard_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-3" src="puppeth/dashboard_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-4" src="puppeth/dashboard_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-5" src="puppeth/dashboard_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-6" src="puppeth/dashboard_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-7" src="puppeth/dashboard_7.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-8" src="puppeth/dashboard_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-9" src="puppeth/dashboard_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-10" src="puppeth/dashboard_10.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-11" src="puppeth/dashboard_11.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-12" src="puppeth/dashboard_12.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardDashboard()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="dashboard-counter" type="text" value="1 / 12" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardDashboard()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeDashboard()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="dashboard-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="dashboard-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeDashboardPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="dashboard-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="dashboard-page-1" src="puppeth/dashboard_ss_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-2" src="puppeth/dashboard_ss_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-3" src="puppeth/dashboard_ss_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-4" src="puppeth/dashboard_ss_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-5" src="puppeth/dashboard_ss_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-6" src="puppeth/dashboard_ss_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-7" src="puppeth/dashboard_ss_7.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-8" src="puppeth/dashboard_ss_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="dashboard-page-9" src="puppeth/dashboard_ss_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardDashboardPage()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="dashboard-page-counter" type="text" value="1 / 9" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardDashboardPage()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeDashboardPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var dashboardResize = function() {
+		var scale = 990 / 1300;
+
+		$("#dashboard-iframe").width(1300);
+		$("#dashboard-iframe").height(544 / scale);
+		$("#dashboard-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', dashboardResize);
+
+	var dashboardSS = 1;
+	var loadDeadDashboard = function() {
+		$('#dashboard-playback').fadeIn(1000);
+	}
+	var forwardDashboard = function() {
+		if (dashboardSS < 12) {
+			$('#dashboard-' + ++dashboardSS).toggle();
+			$('#dashboard-counter').val(dashboardSS + " / 12");
+		}
+	}
+	var backwardDashboard = function() {
+		if (dashboardSS > 1) {
+			$('#dashboard-' + dashboardSS--).toggle();
+			$('#dashboard-counter').val(dashboardSS + " / 12");
+		}
+	}
+	var loadLiveDashboard = function() {
+		$("#dashboard").on('load', function() {
+			dashboardResize(); $('#dashboard-iframe').fadeIn(1000);
+		});
+		$("#dashboard").attr('src', 'http://localhost:8080/?arg=--network&arg=devcon');
+	}
+	var closeDashboard = function() {
+		$("#dashboard").off('load');
+		$('#dashboard-iframe').fadeOut(1000, function() {
+			$("#dashboard").attr('src', '');
+		});
+		$('#dashboard-playback').fadeOut(1000);
+	}
+
+	var dashboardPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#dashboard-page-iframe").width(1920);
+		$("#dashboard-page-iframe").height(544 / scale);
+		$("#dashboard-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', dashboardResize);
+
+	var dashboardPageSS = 1;
+	var loadDeadDashboardPage = function() {
+		$('#dashboard-page-playback').fadeIn(1000);
+	}
+	var forwardDashboardPage = function() {
+		if (dashboardPageSS < 9) {
+			$('#dashboard-page-' + ++dashboardPageSS).toggle();
+			$('#dashboard-page-counter').val(dashboardPageSS + " / 9");
+		}
+	}
+	var backwardDashboardPage = function() {
+		if (dashboardPageSS > 1) {
+			$('#dashboard-page-' + dashboardPageSS--).toggle();
+			$('#dashboard-page-counter').val(dashboardPageSS + " / 9");
+		}
+	}
+	var loadLiveDashboardPage = function() {
+		$("#dashboard-page").on('load', function() {
+			dashboardPageResize(); $('#dashboard-page-iframe').fadeIn(1000);
+		});
+		$("#dashboard-page").attr('src', 'http://devcon.network');
+	}
+	var closeDashboardPage = function() {
+		$("#dashboard-page").off('load');
+		$('#dashboard-page-iframe').fadeOut(1000, function() {
+			$("#dashboard-page").attr('src', '');
+		});
+		$('#dashboard-page-playback').fadeOut(1000);
+	}
+</script>

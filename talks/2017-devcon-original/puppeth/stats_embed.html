@@ -1,0 +1,112 @@
+<button onclick="loadDeadStats()" style="position: absolute; right: 21.5em; bottom: 4em; cursor: pointer;">$ puppeth --network=devcon (demo)</button>
+<button onclick="loadDeadStatsPage()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">http://stats.devcon.network (demo)</button>
+
+<button onclick="loadLiveStats()" style="position: absolute; right: 21.5em; bottom: 6em; cursor: pointer;">$ puppeth --network=devcon (live)</button>
+<button onclick="loadLiveStatsPage()" style="position: absolute; right: 5.5em; bottom: 6em; cursor: pointer;">http://stats.devcon.network (live)</button>
+
+<div id="stats-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="stats" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeStats()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="stats-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="stats-1" src="puppeth/stats_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-2" src="puppeth/stats_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-3" src="puppeth/stats_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-4" src="puppeth/stats_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-5" src="puppeth/stats_5.png" hidden style="position: absolute; left: 0em; top: 0.25px; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-6" src="puppeth/stats_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-7" src="puppeth/stats_7.png" hidden style="position: absolute; left: 0em; top: 0.25px; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-8" src="puppeth/stats_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-9" src="puppeth/stats_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="stats-10" src="puppeth/stats_10.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardStats()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="stats-counter" type="text" value="1 / 10" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardStats()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeStats()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="stats-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="stats-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeStatsPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="stats-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/stats.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeStatsPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var statsResize = function() {
+		var scale = 990 / 1300;
+
+		$("#stats-iframe").width(1300);
+		$("#stats-iframe").height(544 / scale);
+		$("#stats-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', statsResize);
+
+	var statsSS = 1;
+	var loadDeadStats = function() {
+		$('#stats-playback').fadeIn(1000);
+	}
+	var forwardStats = function() {
+		if (statsSS < 10) {
+			$('#stats-' + ++statsSS).toggle();
+			$('#stats-counter').val(statsSS + " / 10");
+		}
+	}
+	var backwardStats = function() {
+		if (statsSS > 1) {
+			$('#stats-' + statsSS--).toggle();
+			$('#stats-counter').val(statsSS + " / 10");
+		}
+	}
+	var loadLiveStats = function() {
+		$("#stats").on('load', function() {
+			statsResize(); $('#stats-iframe').fadeIn(1000);
+		});
+		$("#stats").attr('src', 'http://localhost:8080/?arg=--network&arg=devcon');
+	}
+	var closeStats = function() {
+		$("#stats").off('load');
+		$('#stats-iframe').fadeOut(1000, function() {
+			$("#stats").attr('src', '');
+		});
+		$('#stats-playback').fadeOut(1000);
+	}
+
+	var statsPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#stats-page-iframe").width(1920);
+		$("#stats-page-iframe").height(544 / scale);
+		$("#stats-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', statsResize);
+
+	var loadDeadStatsPage = function() {
+		$('#stats-page-playback').fadeIn(1000);
+	}
+	var loadLiveStatsPage = function() {
+		$("#stats-page").on('load', function() {
+			statsPageResize(); $('#stats-page-iframe').fadeIn(1000);
+		});
+		$("#stats-page").attr('src', 'http://stats.devcon.network');
+	}
+	var closeStatsPage = function() {
+		$("#stats-page").off('load');
+		$('#stats-page-iframe').fadeOut(1000, function() {
+			$("#stats-page").attr('src', '');
+		});
+		$('#stats-page-playback').fadeOut(1000);
+	}
+</script>

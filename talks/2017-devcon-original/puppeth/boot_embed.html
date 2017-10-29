@@ -1,0 +1,114 @@
+<button onclick="loadDeadBoot()" style="position: absolute; right: 21.5em; bottom: 4em; cursor: pointer;">$ puppeth --network=devcon (demo)</button>
+<button onclick="loadDeadBootPage()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">http://stats.devcon.network (demo)</button>
+
+<button onclick="loadLiveBoot()" style="position: absolute; right: 21.5em; bottom: 6em; cursor: pointer;">$ puppeth --network=devcon (live)</button>
+<button onclick="loadLiveBootPage()" style="position: absolute; right: 5.5em; bottom: 6em; cursor: pointer;">http://stats.devcon.network (live)</button>
+
+<div id="boot-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="boot" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeBoot()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="boot-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="boot-1" src="puppeth/boot_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-2" src="puppeth/boot_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-3" src="puppeth/boot_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-4" src="puppeth/boot_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-5" src="puppeth/boot_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-6" src="puppeth/boot_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-7" src="puppeth/boot_7.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-8" src="puppeth/boot_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-9" src="puppeth/boot_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-10" src="puppeth/boot_10.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-11" src="puppeth/boot_11.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="boot-12" src="puppeth/boot_12.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardBoot()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="boot-counter" type="text" value="1 / 12" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardBoot()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeBoot()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="boot-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="boot-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeBootPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="boot-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/boot.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeBootPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var bootResize = function() {
+		var scale = 990 / 1300;
+
+		$("#boot-iframe").width(1300);
+		$("#boot-iframe").height(544 / scale);
+		$("#boot-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', bootResize);
+
+	var bootSS = 1;
+	var loadDeadBoot = function() {
+		$('#boot-playback').fadeIn(1000);
+	}
+	var forwardBoot = function() {
+		if (bootSS < 12) {
+			$('#boot-' + ++bootSS).toggle();
+			$('#boot-counter').val(bootSS + " / 12");
+		}
+	}
+	var backwardBoot = function() {
+		if (bootSS > 1) {
+			$('#boot-' + bootSS--).toggle();
+			$('#boot-counter').val(bootSS + " / 12");
+		}
+	}
+	var loadLiveBoot = function() {
+		$("#boot").on('load', function() {
+			bootResize(); $('#boot-iframe').fadeIn(1000);
+		});
+		$("#boot").attr('src', 'http://localhost:8080/?arg=--network&arg=devcon');
+	}
+	var closeBoot = function() {
+		$("#boot").off('load');
+		$('#boot-iframe').fadeOut(1000, function() {
+			$("#boot").attr('src', '');
+		});
+		$('#boot-playback').fadeOut(1000);
+	}
+
+	var bootPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#boot-page-iframe").width(1920);
+		$("#boot-page-iframe").height(544 / scale);
+		$("#boot-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', bootResize);
+
+	var loadDeadBootPage = function() {
+		$('#boot-page-playback').fadeIn(1000);
+	}
+	var loadLiveBootPage = function() {
+		$("#boot-page").on('load', function() {
+			bootPageResize(); $('#boot-page-iframe').fadeIn(1000);
+		});
+		$("#boot-page").attr('src', 'http://stats.devcon.network');
+	}
+	var closeBootPage = function() {
+		$("#boot-page").off('load');
+		$('#boot-page-iframe').fadeOut(1000, function() {
+			$("#boot-page").attr('src', '');
+		});
+		$('#boot-page-playback').fadeOut(1000);
+	}
+</script>

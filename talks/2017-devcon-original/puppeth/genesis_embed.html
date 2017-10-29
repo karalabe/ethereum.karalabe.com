@@ -1,0 +1,72 @@
+<img src="puppeth/genesis_horror.png" style="position: absolute; right: 4.5em; top: 5em; width: 250px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;"/>
+
+<span style="position: absolute; right: 8.75em; top: 28.75em; font-size: 14px;">
+  Parity config snippet (20 lines out of 155) 😱
+</span>
+
+<button onclick="loadDeadGenesis()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">$ puppeth (demo)</button>
+<button onclick="loadLiveGenesis()" style="position: absolute; right: 5em; bottom: 6em; cursor: pointer;">$ puppeth (live)</button>
+
+<div id="genesis-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="genesis" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeGenesis()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="genesis-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="genesis-1" src="puppeth/genesis_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="genesis-2" src="puppeth/genesis_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="genesis-3" src="puppeth/genesis_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="genesis-4" src="puppeth/genesis_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="genesis-5" src="puppeth/genesis_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="genesis-6" src="puppeth/genesis_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardGenesis()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+  <input id="genesis-counter" type="text" value="1 / 6" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardGenesis()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeGenesis()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var genesisResize = function() {
+		var scale = 990 / 1300;
+
+		$("#genesis-iframe").width(1300);
+		$("#genesis-iframe").height(544 / scale);
+		$("#genesis-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', genesisResize);
+
+	var genesisSS = 1;
+	var loadDeadGenesis = function() {
+		$('#genesis-playback').fadeIn(1000);
+	}
+	var forwardGenesis = function() {
+		if (genesisSS < 6) {
+			$('#genesis-' + ++genesisSS).toggle();
+      $('#genesis-counter').val(genesisSS + " / 6");
+		}
+	}
+	var backwardGenesis = function() {
+		if (genesisSS > 1) {
+			$('#genesis-' + genesisSS--).toggle();
+      $('#genesis-counter').val(genesisSS + " / 6");
+		}
+	}
+	var loadLiveGenesis = function() {
+		$("#genesis").on('load', function() {
+			genesisResize(); $('#genesis-iframe').fadeIn(1000);
+		});
+		$("#genesis").attr('src', 'http://localhost:8080');
+	}
+	var closeGenesis = function() {
+		$("#genesis").off('load');
+		$('#genesis-iframe').fadeOut(1000, function() {
+			$("#genesis").attr('src', '');
+		});
+		$('#genesis-playback').fadeOut(1000);
+	}
+</script>

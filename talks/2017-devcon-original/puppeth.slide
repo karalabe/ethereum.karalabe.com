@@ -1,0 +1,181 @@
+Developers, Developers, Developers
+Ethereum for all your networks!
+2 Nov 2017
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Team Lead
+https://ethereum.org/
+
+* Birth of a DApp
+
+.image puppeth/whitespace.png
+
+Early hacking via [[https://remix.ethereum.org][Remix]] or similar tools
+
+- Quick prototyping Solidity *playground*
+- Slow compilation, cumbersome workflow ¹
+
+.image puppeth/whitespace.png
+
+Test driven via [[http://truffleframework.com/][Truffle]] or similar tools
+
+- Repeatable automated testing *in*code*
+- Instant testing via [[https://github.com/ethereumjs/testrpc][testrpc]] or [[https://github.com/ethereum/go-ethereum/pull/15323][PoA dev]] nodes ²
+
+.html puppeth/birth_embed.html
+
+* Integration of a DApp
+
+.image puppeth/whitespace.png
+
+Deployment on [[https://ropsten.etherscan.io/][Ropsten]] or similar network
+
+- Real-world behavior, multi-user environment
+- Live integration, user feedback, launch preparation
+
+.image puppeth/whitespace.png
+
+Perfect environment... until it goes boom 💥
+
+- Heavy chain due to frequent spam attacks ¹
+- Unstable chain due to occasional reorg attacks ²
+- Unfriendly chain due to limited test ETH availability ³
+
+.html puppeth/integrate_embed.html
+
+* Run your own network?! 😱
+
+.image puppeth/whitespace.png
+
+Mixed bag of treats
+
+- *Yay* – Light, stable, unlimited and shareable
+- *Noo* – Need to deploy, monitor and maintain
+- *Omg* – Genesis (*per*client*), ethstats (*auth,*bans*)
+- *OmG* – Bootnodes (*firewall*) and signers (*accounts*)
+- *Omfg* – Explorer, wallet, faucet, guides, website, *proxy*
+
+.html puppeth/privnet_embed.html
+
+* Puppeth
+
+* Chapter I – Genesis™
+
+.image puppeth/whitespace.png
+
+Define *genesis*state* and *protocol*rules*
+
+- Determine initial *accounts* and *balances*
+- Determine precompiled *contracts* and *fees*
+- Homestead, Tangerine, Spurious, Byzantium...
+
+.image puppeth/whitespace.png
+
+Repeat for all desired clients (5)
+
+- *414*lines* of configs at *minimum*
+
+.html puppeth/genesis_embed.html
+
+* Chapter II – Eyes in the Sky™
+
+.image puppeth/whitespace.png
+
+Deploy *network* monitoring daemon
+
+- Configure and build [[https://github.com/cubedro/eth-netstats][ethstats]] via *nodejs*
+- Configure and deploy an [[https://nginx.org/en/][nginx]] *reverse*proxy*
+
+.image puppeth/whitespace.png
+
+Reconfigure login *secret* and IP *blacklist*
+
+.html puppeth/stats_embed.html
+
+* Chapter III – Birth of a Nation™
+
+.image puppeth/whitespace.png
+
+Deploy *entry*point* into the network
+
+- Build and deploy [[https://github.com/ethereum/go-ethereum][Geth]] bootnode via *Go*
+- Configure *private*chain* and *stats* reporting
+- Maintain, *reconfigure* and redeploy upon need
+
+.html puppeth/boot_embed.html
+
+* Chapter IV – The Gold Rush™
+
+.image puppeth/whitespace.png
+
+Deploy *transaction*processor* for the chain
+
+- Build and deploy a [[https://github.com/ethereum/go-ethereum][Geth]] mining node via *Go*
+- Configure *chain*, *bootnode* and *stats* reporting
+
+.image puppeth/whitespace.png
+
+Reconfigure block *limits* and gas *prices*
+
+.html puppeth/miner_embed.html
+
+* Chapter V – Raiders of the Lost Block™
+
+.image puppeth/whitespace.png
+
+Deploy *blockchain* exploration service
+
+- Configure and build [[https://github.com/gobitfly/etherchain-light][etherchain]] via *nodejs*
+- Configure and deploy a [[https://github.com/paritytech/parity][Parity]] *archive* via *Rust*
+- Configure a new or link existing [[https://nginx.org/en/][nginx]] *reverse*proxy*
+- Configure *chain*, *bootnode*, *stats* and node/explorer *link*
+
+.html puppeth/explorer_embed.html
+
+* Chapter VI – WALL·E™
+
+.image puppeth/whitespace.png
+
+Deploy user friendly *online*wallet*
+
+- Configure and build [[https://github.com/kvhnuke/etherwallet][MEW]] via *nodejs*
+- Configure and deploy [[https://github.com/ethereum/go-ethereum][Geth]] *RPC* node via *Go*
+- Configure new or link existing [[https://nginx.org/en/][nginx]] *reverse*proxy*
+- Configure *chain*, *bootnode*, *stats* and node/wallet *link*
+
+.html puppeth/wallet_embed.html
+
+* Chapter VII – El Dorado™
+
+.image puppeth/whitespace.png
+
+Deploy public test *funding* service
+
+- Build and deploy a [[https://github.com/ethereum/go-ethereum/tree/master/cmd/faucet][Geth Faucet]] via *Go*
+- Configure *chain*, *bootnode*, *stats* and *funds*
+- Configure new or link existing [[https://nginx.org/en/][nginx]] *reverse*proxy*
+
+.image puppeth/whitespace.png
+
+Reconfigure funding *policy* and auth *providers*
+
+.html puppeth/faucet_embed.html
+
+* Chapter VIII – Inside Out™
+
+.image puppeth/whitespace.png
+
+Gather all *services* and *guides* together
+
+- Host all *web*services* under *single* umbrella
+- Maintain connectivity *guides* for *different* clients
+- Configure a new or link existing [[https://nginx.org/en/][nginx]] *reverse*proxy*
+
+.image puppeth/whitespace.png
+
+Update available *services* and expand *guides*
+
+.html puppeth/dashboard_embed.html

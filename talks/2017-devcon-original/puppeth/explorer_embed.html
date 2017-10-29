@@ -1,0 +1,153 @@
+<button onclick="loadDeadExplorer()" style="position: absolute; right: 40em; bottom: 4em; cursor: pointer;">$ puppeth --network=devcon (demo)</button>
+<button onclick="loadDeadExplorerPage()" style="position: absolute; right: 21.5em; bottom: 4em; cursor: pointer;">http://explorer.devcon.network (demo)</button>
+<button onclick="loadDeadExplorerStatusPage()" style="position: absolute; right: 4.5em; bottom: 4em; cursor: pointer;">http://stats.devcon.network (demo)</button>
+
+<button onclick="loadLiveExplorer()" style="position: absolute; right: 39.5em; bottom: 6em; cursor: pointer;">$ puppeth --network=devcon (live)</button>
+<button onclick="loadLiveExplorerPage()" style="position: absolute; right: 22em; bottom: 6em; cursor: pointer;">http://explorer.devcon.network (live)</button>
+<button onclick="loadLiveExplorerStatusPage()" style="position: absolute; right: 6em; bottom: 6em; cursor: pointer;">http://stats.devcon.network (live)</button>
+
+<div id="explorer-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="explorer" style="position: absolute; width: 1300px; height: 100%; border: none;"></iframe>
+	<button onclick="closeExplorer()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="explorer-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background-color: rgb(48, 10, 36); border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img id="explorer-1" src="puppeth/explorer_1.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-2" src="puppeth/explorer_2.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-3" src="puppeth/explorer_3.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-4" src="puppeth/explorer_4.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-5" src="puppeth/explorer_5.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-6" src="puppeth/explorer_6.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-7" src="puppeth/explorer_7.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-8" src="puppeth/explorer_8.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-9" src="puppeth/explorer_9.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<img id="explorer-10" src="puppeth/explorer_10.png" hidden style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="backwardExplorer()" style="position: absolute; right: 6em; bottom: 0em; cursor: pointer;">⏪</button>
+	<input id="explorer-counter" type="text" value="1 / 10" readonly style="position: absolute; right: 2.25em; bottom: 0em; width: 42px; text-align: center;">
+	<button onclick="forwardExplorer()" style="position: absolute; right: 0em; bottom: 0em; cursor: pointer;">⏩</button>
+	<button onclick="closeExplorer()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="explorer-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="explorer-page" style="position: absolute; width: 1440px; height: 100%; border: none;"></iframe>
+	<button onclick="closeExplorerPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="explorer-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; background: white; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/explorer.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeExplorerPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="explorer-status-page-iframe" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<iframe id="explorer-status-page" style="position: absolute; width: 1920px; height: 100%; border: none;"></iframe>
+	<button onclick="closeExplorerStatusPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<div id="explorer-status-page-playback" hidden style="position: absolute; left: 2em; top: 4em; width: 990px; height: 544px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:9px; -moz-border-radius:9px; border-radius:9px; overflow: hidden;">
+	<img src="puppeth/explorer_status.png" style="position: absolute; left: 0em; top: 0em; max-width:100%; max-height: 100%;" width="100%">
+	<button onclick="closeExplorerStatusPage()" style="position: absolute; right: 0em; top: 0em; cursor: pointer;">x</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	var explorerResize = function() {
+		var scale = 990 / 1300;
+
+		$("#explorer-iframe").width(1300);
+		$("#explorer-iframe").height(544 / scale);
+		$("#explorer-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', explorerResize);
+
+	var explorerSS = 1;
+	var loadDeadExplorer = function() {
+		$('#explorer-playback').fadeIn(1000);
+	}
+	var forwardExplorer = function() {
+		if (explorerSS < 10) {
+			$('#explorer-' + ++explorerSS).toggle();
+			$('#explorer-counter').val(explorerSS + " / 10");
+		}
+	}
+	var backwardExplorer = function() {
+		if (explorerSS > 1) {
+			$('#explorer-' + explorerSS--).toggle();
+			$('#explorer-counter').val(explorerSS + " / 10");
+		}
+	}
+	var loadLiveExplorer = function() {
+		$("#explorer").on('load', function() {
+			explorerResize(); $('#explorer-iframe').fadeIn(1000);
+		});
+		$("#explorer").attr('src', 'http://localhost:8080/?arg=--network&arg=devcon');
+	}
+	var closeExplorer = function() {
+		$("#explorer").off('load');
+		$('#explorer-iframe').fadeOut(1000, function() {
+			$("#explorer").attr('src', '');
+		});
+		$('#explorer-playback').fadeOut(1000);
+	}
+
+	var explorerPageResize = function() {
+		var scale = 990 / 1440;
+
+		$("#explorer-page-iframe").width(1440);
+		$("#explorer-page-iframe").height(544 / scale);
+		$("#explorer-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', explorerResize);
+
+	var loadDeadExplorerPage = function() {
+		$('#explorer-page-playback').fadeIn(1000);
+	}
+	var loadLiveExplorerPage = function() {
+		$("#explorer-page").on('load', function() {
+			explorerPageResize(); $('#explorer-page-iframe').fadeIn(1000);
+		});
+		$("#explorer-page").attr('src', 'http://explorer.devcon.network');
+	}
+	var closeExplorerPage = function() {
+		$("#explorer-page").off('load');
+		$('#explorer-page-iframe').fadeOut(1000, function() {
+			$("#explorer-page").attr('src', '');
+		});
+		$('#explorer-page-playback').fadeOut(1000);
+	}
+
+	var explorerStatusPageResize = function() {
+		var scale = 990 / 1920;
+
+		$("#explorer-status-page-iframe").width(1920);
+		$("#explorer-status-page-iframe").height(544 / scale);
+		$("#explorer-status-page-iframe").css({
+			transform: 'scale(' + (scale) + ')',
+			transformOrigin: "0 0"
+		});
+	};
+	window.addEventListener('resize', explorerResize);
+
+	var loadDeadExplorerStatusPage = function() {
+		$('#explorer-status-page-playback').fadeIn(1000);
+	}
+	var loadLiveExplorerStatusPage = function() {
+		$("#explorer-status-page").on('load', function() {
+			explorerStatusPageResize(); $('#explorer-status-page-iframe').fadeIn(1000);
+		});
+		$("#explorer-status-page").attr('src', 'http://stats.devcon.network');
+	}
+	var closeExplorerStatusPage = function() {
+		$("#explorer-status-page").off('load');
+		$('#explorer-status-page-iframe').fadeOut(1000, function() {
+			$("#explorer-status-page").attr('src', '');
+		});
+		$('#explorer-status-page-playback').fadeOut(1000);
+	}
+</script>
