@@ -1,0 +1,141 @@
+A cypherpunk végjátéka
+Virtuális alkotásaink uralma
+19 Oct 2018
+
+Szilágyi Péter
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Team Lead
+https://ethereum.org/
+
+* Egy csepp történelem
+
+* 20. század fegyvere
+
+.image cypherpunk/whitespace.png
+.image cypherpunk/munition.png
+.image cypherpunk/whitespace.png
+
+.html cypherpunk/munition_embed.html
+
+- 1996-ig a fenti kód fegyvernek számított
+- 2000-ig engedély kellett átvinni a határon
+- Mai napig háborúznak a kriptográfia ellen*
+
+* 1985 – "Azonosítás nélküli biztonság" ~David Chaum
+
+.image cypherpunk/whitespace.png
+
+_"Az_alapjai_épülnek_egy_dosszié_társadalomnak,_melyben_számítógépek_következtetik_egyének_életstílusát,_szokásait,_hollétét_és_kapcsolatait_egyszerű_fogyasztói_ügyekből_gyűjtött_adatokból._[...]_Egyének_profiljaira_epülő,_kifinomult_marketing_technikákat_alkalmaznak_a_közvélemény_formálására_és_választások_megdöntésére."_
+
+.image cypherpunk/whitespace.png
+
+- _"Egyének_személyes_kártya_számítógépekkel_tranzakcionálnak_[...]"_
+- _"kijelzővel,_billentyűzettel_és_korlátozott_adadátvitellel_ellátva_[...]"_
+- _"titkolt_struktúra_nélkül,_programozhatva,_egy_kulcsot_őrizve."_
+
+.html cypherpunk/chaum_embed.html
+
+* 1992 – Cypherpunk mozgalom
+
+.image cypherpunk/whitespace.png
+
+_"[...]_Mi,_a_cypherpunkok,_dedikáltak_vagyunk_névtelen_rendszerek_építésére._A_magánéletün-ket_védjük_kriptográfiával,_levéltovábbító_rendszerekkel,_digitális_aláírásokkal_és_elektronikus_pénzzel._
+
+_A_cypherpunkok_kódolnak._Tudjuk,_hogy_valakinek_meg_kell_írni_a_szoftvert_ami_magánéletün-ket_megvédi,_és_mivel_a_védelmet_csak_akkor_kaphatjuk_meg,_ha_mindenki_megkapja,_hajlan-dóak_vagyunk_magunk_megírni._Közzé_tesszük_kódunk,_hogy_társaink_gyakorolhassanak_és_játszhassanak_vele._A_kódunk_igyenes_bárkinek,_világszinten._Nem_érdekel_ha_nem_értesz_egyet_a_szoftverrel_amit_írunk._Tudjuk,_hogy_a_szoftver_nem_semmisíthető_meg_és_hogy_egy_tágasan_szétszórt_rendszer_nem_állítható_le._[...]"_
+
+.html cypherpunk/manifesto_embed.html
+
+* Nevezetes cyherpunk lista-tagok
+
+.html cypherpunk/halloffame_embed.html
+
+* Elektronikus pénz
+
+* <évszám> – <feltaláló> – <projekt> // tippeljetek
+
+.image cypherpunk/whitespace.png
+
+_"A_közösséget_a_résztvevők_együttműködése_határozza_meg,_ennek_hatékonysága_pedig_csere-eszközt_(pénz)_igényel._[...]_Hagyományosan_ezt_a_kormány_vagy_a_kormány_által_támogatott_intézmények_nyújtják._[...]_Egy_kripto-anarchia_során_a_kormányt_nem_ideiglenesen_pusztítják_el,_hanem_véglegesen_tiltják_és_teszik_feleslegessé."_
+
+.image cypherpunk/whitespace.png
+
+Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
+
+- Bárki létrehozhat pénzt egy számításigényes feladat megoldásával
+- Pénzátutalás egy digitálisan aláírt üzenet közvetítésével tőrténik
+
+* 1998 – Wei Dai – b-money
+
+.image cypherpunk/whitespace.png
+
+_"A_közösséget_a_résztvevők_együttműködése_határozza_meg,_ennek_hatékonysága_pedig_csere-eszközt_(pénz)_igényel._[...]_Hagyományosan_ezt_a_kormány_vagy_a_kormány_által_támogatott_intézmények_nyújtják._[...]_Egy_kripto-anarchia_során_a_kormányt_nem_ideiglenesen_pusztítják_el,_hanem_véglegesen_tiltják_és_teszik_feleslegessé."_
+
+.image cypherpunk/whitespace.png
+
+Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
+
+- Bárki létrehozhat pénzt egy számításigényes feladat megoldásával ¹
+- Pénzátutalás egy digitálisan aláírt üzenet közvetítésével tőrténik ²
+
+.html cypherpunk/bmoney_embed.html
+
+* Digitális pénzek versenye
+
+.image cypherpunk/whitespace.png
+
+- 1998 – Wei Dai – b-money
+- 2002 – Adam Back – Hashcash
+- 2004 – Hal Finney – Reusable PoW
+- 2005 – Nick Szabo – Bit Gold
+- 2009 – Satoshi Nakamoto – Bitcoin
+- 2014 – Nicolas van Saberhagen – Monero
+- 2016 – Zooko Wilcox-O'Hearn – Zcash
+
+.html cypherpunk/altcoins_embed.html
+
+* Elektronikus szerződések
+
+* 1996 – Nick Szabo – Okos szerződések
+
+.image cypherpunk/whitespace.png
+
+- _Megfigyelhető_: A felek egymás teljesítményét követni tudják
+- _Ellenőrízhető_: Bíráló fele szerződéssértést bizonyítani tudnak
+- _Zártkörü_: Szerződés részletei rejtve vannak kívülállók számára
+- _Végrehajtható_: Szerződéssértés esetén büntető eljárás indítható
+
+.image cypherpunk/whitespace.png
+
+2014 – Vitalik Buterin – *Ethereum*
+
+- Globális decentralizált számítógép
+- Turing teljes programokat futtat
+- Leállíthatatlan és cenzúrázhatatlan
+
+.html cypherpunk/network_embed.html
+
+* Példa – Közösségi finanszírozás
+
+.image cypherpunk/whitespace.png
+
+.html cypherpunk/crowdfunding_embed.html
+
+Idegenektől pénzgyűjtés saját projektre
+
+- Meghirdetünk egy gyűjtést fix időkerettel
+- Ha összegyűl a teljes összeg, megkapjuk
+- Ha nem, mindenki visszakapja a sajátját
+
+.image cypherpunk/whitespace.png
+
+Apró programozott szerződés (az ni ⇒)
+
+- Nincs köztes fél, aki kezelési díjat szedjen
+- Elég a helyi jogszabályoknak megfelelni
+- Egyértelmű és garantált a végkimenet
+
+* Példa – Aragon – Leállíthatatlan szervezetek
+
+.html cypherpunk/aragon_embed.html

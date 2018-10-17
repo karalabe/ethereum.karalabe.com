@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://localhost:3999/cypherpunk.slide#1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>A cypherpunk végjátéka</title>
+
+    <script src="2018-disz/slides.js"></script>
+  <style>@media print {#ghostery-purple-box {display:none !important}}</style><meta name="viewport" content="width=1100,height=750"><meta name="apple-mobile-web-app-capable" content="yes"></head>
+
+  <body style="display: none" class="loaded">
+
+    <section class="slides layout-widescreen">
+
+      <article class="current">
+        <h1 style="font-size: 48px;">A cypherpunk végjátéka</h1>
+        <h3 style="font-size: 36px; line-height: 36px;">Virtuális alkotásaink uralma</h3><br>
+        <h3>2018. október 19.</h3><h3>DiSz, Székelyudvarhely</h3><br><br>
+        <div class="presenter" style="position: absolute; bottom: 3em; left: 2em">
+
+
+
+  <p>
+    Szilágyi Péter
+  </p>
+
+
+
+
+
+  <p>
+    Ethereum Team Lead
+  </p>
+
+
+
+        </div>
+        <img src="2018-disz/logo.png" width="128px" height="128px" style="position: absolute; bottom: 2em; right: 1em;">
+      </article>
+
+
+
+      <article class="next">
+
+        <h2>Egy csepp történelem</h2>
+
+      </article>
+
+
+
+      <article class="far-next">
+
+        <h3>20. század fegyvere</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="2018-disz/munition.png">
+</div>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+<span style="position: absolute; left: 25em; top: 19em; font-size: 18px;">RSA algoritmus Perlben</span>
+<span style="position: absolute; left: 4.25em; bottom: 2.25em; font-size: 12px;">* DES vs. DeepCrack; RSA Security + NSA = $10M; Google/Apple vs. FBI</span>
+
+  <ul>
+
+    <li>1996-ig a fenti kód fegyvernek számított</li>
+
+    <li>2000-ig engedély kellett átvinni a határon</li>
+
+    <li>Mai napig háborúznak a kriptográfia ellen*</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>1985 – "Azonosítás nélküli biztonság" ~David Chaum</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    <i>"Az alapjai épülnek egy dosszié társadalomnak, melyben számítógépek következtetik egyének életstílusát, szokásait, hollétét és kapcsolatait egyszerű fogyasztói ügyekből gyűjtött adatokból. [...] Egyének profiljaira epülő, kifinomult marketing technikákat alkalmaznak a közvélemény formálására és választások megdöntésére."</i>
+  </p>
+
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+  <ul>
+
+    <li><i>"Egyének személyes kártya számítógépekkel tranzakcionálnak [...]"</i></li>
+
+    <li><i>"kijelzővel, billentyűzettel és korlátozott adadátvitellel ellátva [...]"</i></li>
+
+    <li><i>"titkolt struktúra nélkül, programozhatva, egy kulcsot őrizve."</i></li>
+
+  </ul>
+<img src="2018-disz/ledger.png" style="position: absolute; bottom: 2em; right: 4em; width: 150px;">
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>1992 – Cypherpunk mozgalom</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    <i>"[...] Mi, a cypherpunkok, dedikáltak vagyunk névtelen rendszerek építésére. A magánéletün-ket védjük kriptográfiával, levéltovábbító rendszerekkel, digitális aláírásokkal és elektronikus pénzzel.</i>
+  </p>
+
+
+
+  <p>
+    <i>A cypherpunkok kódolnak. Tudjuk, hogy valakinek meg kell írni a szoftvert ami magánéletün-ket megvédi, és mivel a védelmet csak akkor kaphatjuk meg, ha mindenki megkapja, hajlan-dóak vagyunk magunk megírni. Közzé tesszük kódunk, hogy társaink gyakorolhassanak és játszhassanak vele. A kódunk igyenes bárkinek, világszinten. Nem érdekel ha nem értesz egyet a szoftverrel amit írunk. Tudjuk, hogy a szoftver nem semmisíthető meg és hogy egy tágasan szétszórt rendszer nem állítható le. [...]"</i>
+  </p>
+
+<span style="position: absolute; right: 5em; bottom: 3.5em; font-size: 26px;"><strong>~Eric Hughes: Cypherpunk manifesto</strong></span>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>Nevezetes cyherpunk lista-tagok</h3>
+        <img src="2018-disz/Jacob_Appelbaum.jpg" style="position: absolute; top: 5.5em; left: 2.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 7em; top: 24.5em; font-size: 14px;">
+	Jacob Appelbaum (Tor)
+</span>
+
+<img src="2018-disz/Julian_Assange.jpg" style="position: absolute; top: 5.5em; left: 12.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 25em; top: 24.5em; font-size: 14px;">
+	Julian Assange (WikiLeaks)
+</span>
+
+<img src="2018-disz/Bram_Cohen.jpg" style="position: absolute; top: 5.5em; left: 22.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 43.5em; top: 24.5em; font-size: 14px;">
+	Bram Cohen (BitTorrent)
+</span>
+
+<img src="2018-disz/Hal_Finney.png" style="position: absolute; top: 5.5em; left: 32.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 64em; top: 24.5em; font-size: 14px;">
+	Hal Finney (PoW)
+</span>
+
+<img src="2018-disz/Ben_Laurie.jpg" style="position: absolute; top: 15.5em; left: 2.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 7em; top: 43em; font-size: 14px;">
+	Ben Laurie (OpenSSL)
+</span>
+
+<img src="2018-disz/Moxie_Marlinspike.jpg" style="position: absolute; top: 15.5em; left: 12.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 25em; top: 43em; font-size: 14px;">
+	Moxie Marlinspike (Signal)
+</span>
+
+<img src="2018-disz/Nick_Szabo.jpg" style="position: absolute; top: 15.5em; left: 22.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 43em; top: 43em; font-size: 14px;">
+	Nick Szabo (Smart Contracts)
+</span>
+
+<img src="2018-disz/Phil_Zimmermann.jpg" style="position: absolute; top: 15.5em; left: 32.25em; width: 200px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; left: 62em; top: 43em; font-size: 14px;">
+	Phil Zimmermann (PGP)
+</span>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h2>Elektronikus pénz</h2>
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>&lt;évszám&gt; – &lt;feltaláló&gt; – &lt;projekt&gt; // tippeljetek</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    <i>"A közösséget a résztvevők együttműködése határozza meg, ennek hatékonysága pedig csere-eszközt (pénz) igényel. [...] Hagyományosan ezt a kormány vagy a kormány által támogatott intézmények nyújtják. [...] Egy kripto-anarchia során a kormányt nem ideiglenesen pusztítják el, hanem véglegesen tiltják és teszik feleslegessé."</i>
+  </p>
+
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
+  </p>
+
+
+  <ul>
+
+    <li>Bárki létrehozhat pénzt egy számításigényes feladat megoldásával</li>
+
+    <li>Pénzátutalás egy digitálisan aláírt üzenet közvetítésével tőrténik</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>1998 – Wei Dai – b-money</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    <i>"A közösséget a résztvevők együttműködése határozza meg, ennek hatékonysága pedig csere-eszközt (pénz) igényel. [...] Hagyományosan ezt a kormány vagy a kormány által támogatott intézmények nyújtják. [...] Egy kripto-anarchia során a kormányt nem ideiglenesen pusztítják el, hanem véglegesen tiltják és teszik feleslegessé."</i>
+  </p>
+
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
+  </p>
+
+
+  <ul>
+
+    <li>Bárki létrehozhat pénzt egy számításigényes feladat megoldásával ¹</li>
+
+    <li>Pénzátutalás egy digitálisan aláírt üzenet közvetítésével tőrténik ²</li>
+
+  </ul>
+<span style="position: absolute; left: 4.25em; bottom: 2.25em; font-size: 12px;">
+  ¹ Hogyan alakul a hardver fejlődésével? &nbsp;&nbsp;&nbsp;&nbsp; ² Mi tőrténik cenzútázott hálózat esetén?
+</span>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>Digitális pénzek versenye</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+  <ul>
+
+    <li>1998 – Wei Dai – b-money</li>
+
+    <li>2002 – Adam Back – Hashcash</li>
+
+    <li>2004 – Hal Finney – Reusable PoW</li>
+
+    <li>2005 – Nick Szabo – Bit Gold</li>
+
+    <li>2009 – Satoshi Nakamoto – Bitcoin</li>
+
+    <li>2014 – Nicolas van Saberhagen – Monero</li>
+
+    <li>2016 – Zooko Wilcox-O'Hearn – Zcash</li>
+
+  </ul>
+<img src="2018-disz/altcoins.png" style="position: absolute; right: 2.25em; bottom: 2.25em; width: 450px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h2>Elektronikus szerződések</h2>
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>1996 – Nick Szabo – Okos szerződések</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+  <ul>
+
+    <li><i>Megfigyelhető</i>: A felek egymás teljesítményét követni tudják</li>
+
+    <li><i>Ellenőrízhető</i>: Bíráló fele szerződéssértést bizonyítani tudnak</li>
+
+    <li><i>Zártkörü</i>: Szerződés részletei rejtve vannak kívülállók számára</li>
+
+    <li><i>Végrehajtható</i>: Szerződéssértés esetén büntető eljárás indítható</li>
+
+  </ul>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    2014 – Vitalik Buterin – <b>Ethereum</b>
+  </p>
+
+
+  <ul>
+
+    <li>Globális decentralizált számítógép</li>
+
+    <li>Turing teljes programokat futtat</li>
+
+    <li>Leállíthatatlan és cenzúrázhatatlan</li>
+
+  </ul>
+<img src="2018-disz/network_europe.jpg" style="position: absolute; right: 7.5em; bottom: 2em; width: 356px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="2018-disz/network_us.jpg" style="position: absolute; right: 3em; bottom: 7.5em; width: 110px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="2018-disz/network_china.jpg" style="position: absolute; right: 3em; bottom: 4.75em; width: 110px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="2018-disz/network_south.jpg" style="position: absolute; right: 3em; bottom: 2em; width: 110px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<span style="position: absolute; right: 8.5em; bottom: 1.5em; font-size: 14px;">
+	Ethereum hálózat elterjedése 2017. július 18-án (~24 ezer csomópont)
+</span>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>Példa – Közösségi finanszírozás</h3>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+<img src="2018-disz/crowdsale.png" style="position: absolute; right: 2em; top: 2em; width: 472px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<img src="2018-disz/crowdfunding.png" style="position: absolute; right: 2.5em; bottom: 2.5em; width: 150px;">
+
+
+  <p>
+    Idegenektől pénzgyűjtés saját projektre
+  </p>
+
+
+  <ul>
+
+    <li>Meghirdetünk egy gyűjtést fix időkerettel</li>
+
+    <li>Ha összegyűl a teljes összeg, megkapjuk</li>
+
+    <li>Ha nem, mindenki visszakapja a sajátját</li>
+
+  </ul>
+
+<div class="image">
+  <img src="2018-disz/whitespace.png">
+</div>
+
+
+  <p>
+    Apró programozott szerződés (az ni ⇒)
+  </p>
+
+
+  <ul>
+
+    <li>Nincs köztes fél, aki kezelési díjat szedjen</li>
+
+    <li>Elég a helyi jogszabályoknak megfelelni</li>
+
+    <li>Egyértelmű és garantált a végkimenet</li>
+
+  </ul>
+
+
+      </article>
+
+
+
+      <article class="">
+
+        <h3>Példa – Aragon – Leállíthatatlan szervezetek</h3>
+        <img src="2018-disz/aragon.gif" style="position: absolute; right: 5em; bottom: 2em; width: 820px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+
+<span style="position: absolute; right: 18em; bottom: 1.5em; font-size: 14px;">
+	Decentralizált szervezet-menedzser: részvények, szavazatok, pénzügyek, szabályok. Nyílt forrású, bővíthető.
+</span>
+
+
+      </article>
+
+
+
+      <article class="">
+        <h3>Köszönöm</h3>
+
+          <div class="presenter">
+
+
+  <p>
+    Szilágyi Péter
+  </p>
+
+<p class="link"><a href="mailto:peter@ethereum.org" target="_blank">peter@ethereum.org</a></p><p class="link"><a href="http://twitter.com/peter_szilagyi" target="_blank">@peter_szilagyi</a></p>
+          </div>
+
+          <div class="presenter">
+
+
+  <p>
+    Ethereum Team Lead
+  </p>
+
+<p class="link"><a href="https://ethereum.org/" target="_blank">https://ethereum.org/</a></p>
+          </div>
+
+        <img src="2018-disz/qrcode.png" width="160px" style="position: absolute; bottom: 1.5em; right: 8em">
+        <img src="2018-disz/mascot.png" width="192px" style="position: absolute; bottom: 1.5em; right: 2em">
+      </article>
+
+    <div class="slide-area" id="prev-slide-area"></div><div class="slide-area" id="next-slide-area"></div></section>
+
+    <div id="help">
+      Használd a balra és jobbra nyilakat vagy kattints a bal vagy jobb
+      szélére a jelen diának a diák közötti navigációhoz.<br>
+      (Nyomj 'H' betűt vagy navigálj, hogy elrejtsd ezt az üzenetet.)
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76391520-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+<link rel="stylesheet" type="text/css" href="2018-disz/fonts.css"><link rel="stylesheet" type="text/css" href="2018-disz/styles.css"></body></html>
