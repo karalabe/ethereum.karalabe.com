@@ -64,7 +64,7 @@ _"A_közösséget_a_résztvevők_együttműködése_határozza_meg,_ennek_haték
 Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
 
 - Bárki létrehozhat pénzt egy számításigényes feladat megoldásával
-- Pénzátutalás egy digitálisan aláírt üzenet közvetítésével tőrténik
+- Pénzátutalás egy digitálisan aláírt üzenet közvetítésével történik
 
 * 1998 – Wei Dai – b-money
 
@@ -77,7 +77,7 @@ _"A_közösséget_a_résztvevők_együttműködése_határozza_meg,_ennek_haték
 Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
 
 - Bárki létrehozhat pénzt egy számításigényes feladat megoldásával ¹
-- Pénzátutalás egy digitálisan aláírt üzenet közvetítésével tőrténik ²
+- Pénzátutalás egy digitálisan aláírt üzenet közvetítésével történik ²
 
 .html cypherpunk/bmoney_embed.html
 
@@ -103,7 +103,7 @@ Pénzügyi protokoll melyben minden résztvevő követi mindenki számláját
 
 - _Megfigyelhető_: A felek egymás teljesítményét követni tudják
 - _Ellenőrízhető_: Bíráló fele szerződéssértést bizonyítani tudnak
-- _Zártkörü_: Szerződés részletei rejtve vannak kívülállók számára
+- _Zártkörű_: Szerződés részletei rejtve vannak kívülállók számára
 - _Végrehajtható_: Szerződéssértés esetén büntető eljárás indítható
 
 .image cypherpunk/whitespace.png
