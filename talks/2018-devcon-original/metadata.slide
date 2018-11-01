@@ -1,0 +1,160 @@
+Plugging the metadata leaks
+in the Ethereum ecosystem
+2 Nov 2018
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Ethereum Team Lead
+https://ethereum.org/
+
+* Web 2.0
+
+* Diving into Etherscan
+
+.image metadata/whitespace.png
+
+Easily check your balance / tokens
+
+- Balance, conversion, transactions
+- Tokens, token-contracts, events
+- Comment popular accounts
+
+.image metadata/whitespace.png
+
+_What_happens_behind_the_scenes?_
+
+.html metadata/etherscan_embed.html
+
+* Etherscan + HTTP referrers + external services = 💔
+
+.image metadata/whitespace.png
+
+HTTP referrer headers track web request origins
+
+- Etherscan 🠒 Google Analytics and Disqus
+- Disqus 🠒 External integrated services
+
+.html metadata/disqus_embed.html
+
+* Plug the referral leaks
+
+.image metadata/whitespace.png
+
+Providers *must* protect their users
+
+- *Do*not* integrate legacy web 2.0 services
+- *Do*not* use identifying information in URLs
+- *Do* use strict Referrer-Policy HTTP restrictions
+
+.image metadata/whitespace.png
+
+Users *must* protect themselves
+
+- Use ad, social and tracker blocking extensions*
+- Use mobile browsers that permit blocking trackers*
+
+.html metadata/plug_embed.html
+
+* Plug the geolocation leaks
+
+.html metadata/ipleak_embed.html
+
+.image metadata/whitespace.png
+.image metadata/whitespace.png
+.image metadata/whitespace.png
+
+Would you publicize your location and Ethereum address?
+
+- Cloudflare can link your IP and Ethereum wallet
+- Etherscan can link your IP and Ethereum wallet
+- Infura can link your IP and Ethereum wallet
+
+.image metadata/whitespace.png
+
+Anonymize your IP address with Tor!
+
+* Web 3.0
+
+* Diving into discovery
+
+.image metadata/whitespace.png
+
+.html metadata/join_embed.html
+
+Phases of connecting to Ethereum
+
+- Discover peers via public bootnodes
+- Randomly connect peers to stabilize
+
+.image metadata/whitespace.png
+
+Nodes maintain a Kademlia routing table
+
+- Every node picks a random ID (pubkey)
+- Track ID-to-IP mappings in prefix groups
+- Do random lookups while table is sparse
+- Integrate any unknown contacting nodes
+
+* Portable devices + Ethereum nodes + DHT = 💔
+
+.html metadata/dht_embed.html
+
+.image metadata/whitespace.png
+.image metadata/whitespace.png
+.image metadata/whitespace.png
+
+Node IDs and node IPs are public knowledge
+
+- Accurate historical movement tracking 😱
+- By anyone, anywhere in the world 😭😭😭
+
+.image metadata/whitespace.png
+
+Nodes should switch to ephemeral IDs (?)
+
+- _What_about_bootnodes?_ _Stable_nodes?_ _Vipnode?_
+
+* Diving into light clients
+
+.image metadata/whitespace.png
+
+- Sync and verify only headers ⇔ state root *cannot* be verified
+- Assume good connectivity ⇔ *converges* on the correct chain
+- State retrieved on-demand ⇔ limit traffic to *interesting* data
+
+.html metadata/sync_embed.html
+
+* Light clients + on-demand retrieval + limited servers = 💔
+
+.html metadata/odr_embed.html
+
+.image metadata/whitespace.png
+.image metadata/whitespace.png
+.image metadata/whitespace.png
+
+Light clients only retrieve *useful* data
+
+- Servers can map IPs to Ethereum accounts
+- Stable servers can track geographical movements
+
+.image metadata/whitespace.png
+
+Anonymize your IP address with Tor (?)
+
+- _What_about_embedded_devices?_Connectivity_and_validity_guarantees?_
+
+* Takeaway nuggets
+
+.image metadata/whitespace.png
+
+_Full_nodes_are_the_most_powerful_anonymizers_in_crypto,_because_they_make_everyone_look_the_same_and_act_the_same._Every_shortcut_is_an_exchange_of_privacy_for_convenience!_
+
+.image metadata/whitespace.png
+
+_Privacy_on_Ethereum_is_currently_worse_than_the_surveillance_paradise_of_the_legacy_web._We_have_the_knowledge_to_fix_it_(Tor,_I2P);_let's_prioritize_and_fund_it_before_inertia_sets_in!_
+
+.image metadata/whitespace.png
+
+_Privacy_is_not_up_to_users_to_get_right,_because_they_won't_know_any_better._It_is_our_job_as_platform-,_dapp-_and_decentralized_system_developers_to_protect_them_from_ourselves!_
