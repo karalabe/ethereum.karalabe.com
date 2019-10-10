@@ -1,0 +1,154 @@
+Monitoring Ethereum infra
+A.k.a. "How do I debug Geth?!"
+10 Oct 2019
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Go Ethereum Lead
+https://ethereum.org/
+
+* Logging – Glorified `printf`
+
+.html ./metrics/logging.html
+.video ./metrics/logging.mp4 video/mp4 512 _
+
+* Operationality is a spectrum
+
+.image ./metrics/whitespace.png
+.html ./metrics/spectrum.html
+
+Software is never perfect... and rarely doesn't work...
+
+- Bug-fixes improve operation, regressions worsen it
+- Powerful machines push to the left, weaker to the right
+- Network connectivity and work loads influence everything
+
+.image ./metrics/whitespace.png
+
+Operating an infrastructure is a game of trade-offs
+
+- Too generous, it's wasteful; too stringent, it's unstable
+- Question is, _how_do_you_know_how_close_your_node_is_to_failure?_
+
+* Monitoring and metrics
+
+.html ./metrics/ethstats.html
+.image ./metrics/whitespace.png
+
+Abstract goals of monitoring 😕
+
+- Measure anything deemed useful
+- Aggregate, query and visualize the metrics
+
+.image ./metrics/whitespace.png
+
+Practically, you need to have questions
+
+- Anomalies – What is a specific node doing?
+- Benchmarks – How does version X & Y compare?
+- Health checks – How do nodes behave across the globe?
+
+* Novice – How healthy is a system and at what cost?
+
+.html ./metrics/dashboard_multi.html
+
+* Intermediate – What is the system doing with its resources? (Net)
+
+.html ./metrics/dashboard_network.html
+
+* Intermediate – What is the system doing with its resources? (CPU)
+
+.html ./metrics/dashboard_cpu.html
+
+.image ./metrics/whitespace.png
+.image ./metrics/whitespace.png
+.image ./metrics/whitespace.png
+.image ./metrics/whitespace.png
+.image ./metrics/whitespace.png
+
+CPU load comes up in curious places
+
+- Block processing is a whole can of worms
+- Transaction validation and propagation is surprising
+- RPC calls are unpredictable, network handshake unexpected
+
+* Intermediate – What is the system doing with its resources? (Disk)
+
+.html ./metrics/dashboard_disk.html
+
+.image ./metrics/whitespace.png
+.image ./metrics/whitespace.png
+.image ./metrics/whitespace.png
+
+Accurate disk I/O measurement is notoriously hard
+
+- Executed I/O depends on RAM and fsync ⇒ can't measure the hw
+- Virtualization and containers mess counters ⇒ can't measure the host
+- Libraries cover up hidden and background costs ⇒ can't measure the node
+
+.image ./metrics/whitespace.png
+
+_We_added_our_disk_monitoring_*into*_LevelDB_itself!_Can't_split_by_data_type_though._
+
+* Advanced – Why is the system doing something in particular?
+
+.html ./metrics/dashboard_les.html
+
+* All Star – How does a change influence the system? (Seek PR – Good)
+
+.html ./metrics/dashboard_seek.html
+
+* All Star – How does a change influence the system? (File size PR – Bad)
+
+.html ./metrics/dashboard_resize.html
+
+* All Star – How does a change influence the system? (Trie – Tradeoff)
+
+.image ./metrics/whitespace.png
+
+Most performance decisions are hard
+
+- Benefits are generally not spectacular
+- Improvements in an area degrade others
+
+.image ./metrics/whitespace.png
+
+_Sometimes_degrading_certain_things_is_necessary_ 😞
+
+.html ./metrics/dashboard_cache.html
+
+* Monitoring infrastructure
+
+.image ./metrics/whitespace.png
+
+Enterprise QoS or self-hosted OSS? ¹
+
+- Datadog – Monitoring as a service
+- Grafana – On-premise monitoring
+
+.image ./metrics/whitespace.png
+
+Time series database for Grafana? ¹
+
+- Prometheus – Pull model
+- InfluxDB – Push model
+
+.html ./metrics/ours.html
+
+* Lessons learned
+
+.image ./metrics/whitespace.png
+
+Measure as low as you can
+
+- Every abstraction transforms data and often adds out-of-band processing. Accurate numbers for all code paths need counting at the bottom. The hard part is correlating the measurements back to high level actions.
+
+Measure your worst-case numbers
+
+- The OS is magical and optimizes your faults away (e.g. dedup disk i/o). However, it's not a silver bullet. If you reach its limit (e.g. memory full), it will blow up all at once!
+
+Measure everything that you can afford to
+
+- Measurements are not free, rather a gradient between cheap and prohibitive. When issues arise however, you either have enough numbers, or you repeat the problem.
