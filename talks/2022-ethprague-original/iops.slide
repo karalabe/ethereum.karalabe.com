@@ -1,0 +1,132 @@
+Ethereum in numbers
+Where physics meets TPS
+11 Jun 2022
+
+Péter Szilágyi
+peter@ethereum.org
+@peter_szilagyi
+
+Go Ethereum Lead
+https://ethereum.org/
+
+* Detour: The Boring Company
+
+.html ./iops/vegas_loop.html
+.image ./iops/whitespace.png
+
+Tunnels are expensive, but must they be?
+
+- Why have an excessive 8.5m diameter?
+- Why drill and reinforce in phases?
+- Why not near thermal limits?
+
+.image ./iops/whitespace.png
+.image ./iops/whitespace.png
+
+_"Physics_is_the_law,_everything_else_is_a_recommendation"_ ~Elon Musk
+
+* Back to us: EtHiRUeM DoEs nOT sCaLe
+
+.html ./iops/screeching.html
+.image ./iops/whitespace.png
+
+Ethereum is too expensive for me!
+
+- Expensive, or *too* expensive? Capacity supply vs. demand?
+
+Ethereum can barely do 15-25 TPS!
+
+- ETH send; ERC transfer; DEX swap; NFT auction? How to measure?
+
+Ethereum runs 1.1M gas per second!
+
+- Avalanche C-chain 1.8M, Binance 7M (was 25M too)?! But they're Geth?!
+
+.image ./iops/whitespace.png
+
+_Problem:_Throughput_is_proportional_to_gas,_but_gas_isn't_proportional_to_load._
+
+# - Transactions need network, CPU and _disk_IO_. *One*is*unlike*the*others!*
+
+* Bane of Ethereum: Merkle Patricia trie
+
+.image ./iops/statetrie.png
+
+_👋_Merkle_tree_containing_account_data_leaves,_linked_together_via_16-child_internal_nodes._👋_
+
+.image ./iops/whitespace.png
+
+Catch: The more accounts there are, the deeper the state trie becomes.
+
+* Bane of Ethereum: State trie depth
+
+.image ./iops/whitespace.png
+
+Logarithmic depth surely doesn't matter?
+
+- Ethereum has 174M accounts ⇒ 6.85 internal depth + 1 leaf layer
+- Plain transfers update 2 accounts ⇒ 15 new nodes in the account trie
+- LevelDB stores data in 7 disk layers ⇒ amplifies at worse into 105 writes
+- Old path read for root hash calculation ⇒ bumps to potentially 210 IO ops
+- Mined blocks need to propagate ⇒ 210 ops miner side, 210 ops full node side
+
+    HDD                    capped at        80 IOPS  ⇒  0.19 TPS  (x2/3 = 0.12 TPS with disk pruning)
+    SSD (SATA 6)           capped at    90.000 IOPS  ⇒   214 TPS  (x2/3 =  142 TPS with disk pruning)
+    SSD (NVMe over PCIe 3) capped at   360.000 IOPS  ⇒   857 TPS  (x2/3 =  571 TPS with disk pruning)
+    SSD (NVMe over PCIe 4) capped at 1.000.000 IOPS  ⇒  2381 TPS  (x2/3 = 1587 TPS with disk pruning)
+
+_*Purely_disk_latency_bounds,_no_in-memory_optimizations_(archive),_no_caching_(small_RAM)_
+
+* Bane of Ethereum: State trie size
+
+.image ./iops/whitespace.png
+
+To raise the TPS, we must lower the disk IOPS:
+
+- Keep things in memory and avoid hitting the disk
+- OS uses free memory as disk cache ⇒ db shuffling in RAM
+- Geth does in-memory pruning ⇒ ephemeral state never hits the db
+
+.image ./iops/whitespace.png
+
+Unfortunately, system memory is limited
+
+- State outgrows the RAM ⇒ db writes revert to physical disk writes
+- State becomes bigger ⇒ pruning needs more RAM or it flushes more
+
+* Bane of Ethereum: State trie growth
+
+.image ./iops/whitespace.png
+
+How fast is Ethereum's state growing (5th June, '22 - Sunday)?
+
+- Approximately 0.57 account/s¹, 7.3 storage-slot/s
+- Approximately 28.5B/s for accounts, 557B/s for storage ~= 50.6MB/day, 18.5GB/y
+
+.image ./iops/whitespace.png
+
+Catch: above growth is the pure useful state data
+
+- Account trie weighs ~155.2B/acc, storage tries weigh ~142.3B/slot²
+- Trie grows 88.5B/s for accounts, 1038.8B/s for storage ~= 97.4MB/day, 35.6GB/y³
+
+.image ./iops/whitespace.png
+
+_¹+30%_according_to_Etherscan_; _²computer_said_so,_maybe_lied_; _³disregarded_log_component_
+
+* What does this all mean?
+
+.image ./iops/whitespace.png
+
+Ethereum (along with all forks) is on a – potential – death trajectory 😱
+
+- Constant TPS ⇒ state growth ⇒ higher RAM ⇒ more IOPS ⇒ lower TPS ⇒ brick wall
+- Mainnet *can* do a lot more TPS ⇒ brings the brick wall closer
+
+.image ./iops/whitespace.png
+
+But does the brick wall _need_to_ exist?
+
+- [[https://eips.ethereum.org/EIPS/eip-4444][EIP-4444]]: Bound Historical Data in Execution Clients
+- [[https://eips.ethereum.org/EIPS/eip-4844][EIP-4844]]: Shard Blob Transactions
+- State rent or exponential costs

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://localhost:3999/iops.slide#1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ethereum in numbers</title>
+    
+    <script async="" src="2022-ethprague/analytics.js"></script><script src="2022-ethprague/slides.js"></script>
+  <meta name="viewport" content="width=1100,height=750"><meta name="apple-mobile-web-app-capable" content="yes"><style>@media print {#ghostery-tracker-tally {display:none !important}}</style></head>
+
+  <body style="display: none" class="loaded">
+
+    <section class="slides layout-widescreen">
+
+      <article class="current">
+        <h1 style="font-size: 48px;">Ethereum in numbers</h1>
+        <h3 style="font-size: 36px; line-height: 36px;">Where physics meets TPS</h3><br>
+        <h3>11 June 2022</h3><h3>ETHPrague</h3><br><br>
+        <div class="presenter" style="position: absolute; bottom: 3em; left: 2em">
+          
+            
+  
+  <p>
+    Péter Szilágyi
+  </p>
+  
+
+          
+            
+  
+  <p>
+    Go Ethereum Lead
+  </p>
+  
+
+          
+        </div>
+        <img src="2022-ethprague/logo.svg" height="128px" style="position: absolute; bottom: 2em; right: 2em;">
+      </article>
+
+  
+  
+      <article class="next">
+      
+        <h3>Detour: The Boring Company</h3>
+        <img src="2022-ethprague/vegas_loop.jpg" style="position: absolute; right: 2em; top: 6em; width: 400px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
+<span style="position: absolute; right: 8.5em; bottom: 14em; font-size: 20px;">Vegas Loop tunnel</span>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Tunnels are expensive, but must they be?
+  </p>
+  
+
+  <ul>
+  
+    <li>Why have an excessive 8.5m diameter?</li>
+  
+    <li>Why drill and reinforce in phases?</li>
+  
+    <li>Why not near thermal limits?</li>
+  
+  </ul>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    <i>"Physics is the law, everything else is a recommendation"</i> ~Elon Musk
+  </p>
+  
+
+      
+      </article>
+  
+  
+  
+      <article class="far-next">
+      
+        <h3>Back to us: EtHiRUeM DoEs nOT sCaLe</h3>
+        <img src="2022-ethprague/screeching.png" style="position: absolute; right: 2em; bottom: 2em; width: 120px;">
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Ethereum is too expensive for me!
+  </p>
+  
+
+  <ul>
+  
+    <li>Expensive, or <b>too</b> expensive? Capacity supply vs. demand?</li>
+  
+  </ul>
+
+  
+  <p>
+    Ethereum can barely do 15-25 TPS!
+  </p>
+  
+
+  <ul>
+  
+    <li>ETH send; ERC transfer; DEX swap; NFT auction? How to measure?</li>
+  
+  </ul>
+
+  
+  <p>
+    Ethereum runs 1.1M gas per second!
+  </p>
+  
+
+  <ul>
+  
+    <li>Avalanche C-chain 1.8M, Binance 7M (was 25M too)?! But they're Geth?!</li>
+  
+  </ul>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    <i>Problem: Throughput is proportional to gas, but gas isn't proportional to load.</i>
+  </p>
+  
+
+      
+      </article>
+  
+  
+  
+      <article class="">
+      
+        <h3>Bane of Ethereum: Merkle Patricia trie</h3>
+        
+<div class="image">
+  <img src="2022-ethprague/statetrie.png">
+</div>
+
+  
+  <p>
+    <i>👋 Merkle tree containing account data leaves, linked together via 16-child internal nodes. 👋</i>
+  </p>
+  
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Catch: The more accounts there are, the deeper the state trie becomes.
+  </p>
+  
+
+      
+      </article>
+  
+  
+  
+      <article class="">
+      
+        <h3>Bane of Ethereum: State trie depth</h3>
+        
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Logarithmic depth surely doesn't matter?
+  </p>
+  
+
+  <ul>
+  
+    <li>Ethereum has 174M accounts ⇒ 6.85 internal depth + 1 leaf layer</li>
+  
+    <li>Plain transfers update 2 accounts ⇒ 15 new nodes in the account trie</li>
+  
+    <li>LevelDB stores data in 7 disk layers ⇒ amplifies at worse into 105 writes</li>
+  
+    <li>Old path read for root hash calculation ⇒ bumps to potentially 210 IO ops</li>
+  
+    <li>Mined blocks need to propagate ⇒ 210 ops miner side, 210 ops full node side</li>
+  
+  </ul>
+
+  
+  <div class="code"><pre>HDD                    capped at        80 IOPS  ⇒  0.19 TPS  (x2/3 = 0.12 TPS with disk pruning)
+SSD (SATA 6)           capped at    90.000 IOPS  ⇒   214 TPS  (x2/3 =  142 TPS with disk pruning)
+SSD (NVMe over PCIe 3) capped at   360.000 IOPS  ⇒   857 TPS  (x2/3 =  571 TPS with disk pruning)
+SSD (NVMe over PCIe 4) capped at 1.000.000 IOPS  ⇒  2381 TPS  (x2/3 = 1587 TPS with disk pruning)</pre></div>
+  
+
+  
+  <p>
+    <i>*Purely disk latency bounds, no in-memory optimizations (archive), no caching (small RAM)</i>
+  </p>
+  
+
+      
+      </article>
+  
+  
+  
+      <article class="">
+      
+        <h3>Bane of Ethereum: State trie size</h3>
+        
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    To raise the TPS, we must lower the disk IOPS:
+  </p>
+  
+
+  <ul>
+  
+    <li>Keep things in memory and avoid hitting the disk</li>
+  
+    <li>OS uses free memory as disk cache ⇒ db shuffling in RAM</li>
+  
+    <li>Geth does in-memory pruning ⇒ ephemeral state never hits the db</li>
+  
+  </ul>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Unfortunately, system memory is limited
+  </p>
+  
+
+  <ul>
+  
+    <li>State outgrows the RAM ⇒ db writes revert to physical disk writes</li>
+  
+    <li>State becomes bigger ⇒ pruning needs more RAM or it flushes more</li>
+  
+  </ul>
+
+      
+      </article>
+  
+  
+  
+      <article class="">
+      
+        <h3>Bane of Ethereum: State trie growth</h3>
+        
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    How fast is Ethereum's state growing (5th June, '22 - Sunday)?
+  </p>
+  
+
+  <ul>
+  
+    <li>Approximately 0.57 account/s¹, 7.3 storage-slot/s</li>
+  
+    <li>Approximately 28.5B/s for accounts, 557B/s for storage ~= 50.6MB/day, 18.5GB/y</li>
+  
+  </ul>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Catch: above growth is the pure useful state data
+  </p>
+  
+
+  <ul>
+  
+    <li>Account trie weighs ~155.2B/acc, storage tries weigh ~142.3B/slot²</li>
+  
+    <li>Trie grows 88.5B/s for accounts, 1038.8B/s for storage ~= 97.4MB/day, 35.6GB/y³</li>
+  
+  </ul>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    <i>¹+30% according to Etherscan</i>; <i>²computer said so, maybe lied</i>; <i>³disregarded log component</i>
+  </p>
+  
+
+      
+      </article>
+  
+  
+  
+      <article class="">
+      
+        <h3>What does this all mean?</h3>
+        
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    Ethereum (along with all forks) is on a – potential – death trajectory 😱
+  </p>
+  
+
+  <ul>
+  
+    <li>Constant TPS ⇒ state growth ⇒ higher RAM ⇒ more IOPS ⇒ lower TPS ⇒ brick wall</li>
+  
+    <li>Mainnet <b>can</b> do a lot more TPS ⇒ brings the brick wall closer</li>
+  
+  </ul>
+
+<div class="image">
+  <img src="2022-ethprague/whitespace.png">
+</div>
+
+  
+  <p>
+    But does the brick wall <i>need to</i> exist?
+  </p>
+  
+
+  <ul>
+  
+    <li><a href="https://eips.ethereum.org/EIPS/eip-4444" target="_blank">EIP-4444</a>: Bound Historical Data in Execution Clients</li>
+  
+    <li><a href="https://eips.ethereum.org/EIPS/eip-4844" target="_blank">EIP-4844</a>: Shard Blob Transactions</li>
+  
+    <li>State rent or exponential costs</li>
+  
+  </ul>
+
+      
+      </article>
+  
+  
+
+      <article class="">
+        <h3>Thank you</h3>
+        
+          <div class="presenter">
+            
+  
+  <p>
+    Péter Szilágyi
+  </p>
+  
+<p class="link"><a href="mailto:peter@ethereum.org" target="_blank">peter@ethereum.org</a></p><p class="link"><a href="http://twitter.com/peter_szilagyi" target="_blank">@peter_szilagyi</a></p>
+          </div>
+        
+          <div class="presenter">
+            
+  
+  <p>
+    Go Ethereum Lead
+  </p>
+  
+<p class="link"><a href="https://ethereum.org/" target="_blank">https://ethereum.org/</a></p>
+          </div>
+        
+        <img src="2022-ethprague/mesh.svg" width="600px" style="position: absolute; bottom: -12.5em; right: -5em">
+      </article>
+
+    <div class="slide-area" id="prev-slide-area"></div><div class="slide-area" id="next-slide-area"></div></section>
+
+    <div id="help" style="display: none;">
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press 'H' or navigate to hide this message.)
+    </div>
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76391520-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+<link rel="stylesheet" type="text/css" href="2022-ethprague/fonts.css"><link rel="stylesheet" type="text/css" href="2022-ethprague/styles.css"></body></html>
