@@ -100,19 +100,19 @@ Unfortunately, system memory is limited
 
 How fast is Ethereum's state growing (5th June, '22 - Sunday)?
 
-- Approximately 0.57 account/s¹, 7.3 storage-slot/s
-- Approximately 28.5B/s for accounts, 557B/s for storage ~= 50.6MB/day, 18.5GB/y
+- Approximately 0.64 account/s¹, 7.8 storage-slot/s
+- Approximately 31.7B/s for accounts, 593B/s for storage ~= 54MB/day, 19.7GB/y
 
 .image ./iops/whitespace.png
 
 Catch: above growth is the pure useful state data
 
 - Account trie weighs ~155.2B/acc, storage tries weigh ~142.3B/slot²
-- Trie grows 88.5B/s for accounts, 1038.8B/s for storage ~= 97.4MB/day, 35.6GB/y³
+- Trie grows 99.3B/s for accounts, 1110B/s for storage ~= 104.5MB/day, 38.2GB/y³
 
 .image ./iops/whitespace.png
 
-_¹+30%_according_to_Etherscan_; _²computer_said_so,_maybe_lied_; _³disregarded_log_component_
+_¹+25%_according_to_Etherscan_; _²computer_said_so,_maybe_lied_; _³disregarded_log_component_
 
 * What does this all mean?
 
