@@ -15,7 +15,7 @@ https://ethereum.org/
 
 .image ./blobpool/whitespace.png
 
-Layer-2 chains aggregate transactions
+Layer-2s are semi-independent blockchains
 
 - Run transactions concurrently to Ethereum 
 - Collect results and create small commitments
@@ -39,7 +39,7 @@ Data lives forever on Ethereum ⇒ adding new data is expensive
 - Contract storage costs 20.000 gas per 32 ⇒ 128KB data ≈ 2.05 ETH @ 25 gwei
 - Receipt log data costs 8 gas per byte ⇒ 128KB data ≈ 0.025 ETH @ 25 gwei 
 
-Commitments *do*not* live forever ⇒ archiving them is insanity
+Commitments *don't*need*to* live forever ⇒ archiving them is insanity
 
 .image ./blobpool/whitespace.png
 
@@ -68,29 +68,9 @@ Is is fair that layer-2s can transact cheaper?
 
 EIP-4844 *enables* layer-2s while *reducing* costs for others
 
-* Nuts and bolts of 4844
+* Blob-transaction pooling
 
-* EIP-4844 is quite the beast
-
-.html blobpool/totoro.html
-.image ./blobpool/whitespace.png
-
-Execution clients
-
-- Propagate the sizeable (512 KB) transactions
-- Store the pending ones and prioritize for inclusion*
-- Verify the commitments and deliver txs to consensus
-
-.image ./blobpool/whitespace.png
-
-Consensus clients
-
-- Propagate the blob-extended (i.e. huge) blocks
-- Store and track the included blobs until expiration
-
-* Geth's blob-transaction pool
-
-* Constraint: Blob transactions are large
+* Transaction size
 
 .html ./blobpool/propagation.html
 .image ./blobpool/whitespace.png
@@ -107,7 +87,7 @@ Blob transactions are 128KB+ (potentially up to 512KB or 2MB)
 - Peers must only receive them once ⇒ no broadcasts, request on demand
 - Concurrent fetches must not overload ⇒ announce tx type and size too (`eth/68`)
 
-* Constraint: Block blob-space is limited
+* Block space
 
 .image ./blobpool/whitespace.png
 
@@ -125,7 +105,7 @@ Data blobs per block are aggressively capped (4 or 16)
 - Evicting legit transactions becomes unreasonable*
 *Artificial*churn*(i.e.*pool*wars)*must*be*avoided*
 
-* Constraint: Purpose of blobs are layer-2s
+* Purpose of transactions
 
 .image ./blobpool/whitespace.png
 
@@ -142,7 +122,7 @@ Layer-2s are meant to use blobs to commit proofs
 - No reason for cancellations, layer-2s need to commit regularly
 - No reason for replacements, apart from fee adjustments
 
-* Constraint: Replacements are expensive
+* Cost of replacements
 
 .image ./blobpool/whitespace.png
 
@@ -160,7 +140,7 @@ Blob transactions are expensive to replace
 
 *Replacements*must*be*penalized*(1*gwei*start,*100%*fee*bump)*
 
-* Constraint: Cancellation is prohibitive
+* Cost of cancellations
 
 .image ./blobpool/whitespace.png
 
@@ -177,7 +157,7 @@ Cancelling a blob transaction is a DoS vector
 - Nonce gaps in blob transaction sequences are disallowed
 - Pooled blob transactions exclude pooled non-blob ones
 
-* Constraint: Local txs are meaningless
+* Relevancy of locality
 
 .image ./blobpool/whitespace.png
 
@@ -194,7 +174,7 @@ Locality is less relevant for blob transactions
 - 1559's _basefee_ and 4844's _datafee_ remove fee games
 - Large disk persistency reduces reason for eviction protection*
 
-* Constraint: No-blob blob-txs are bad
+* Genericity of transactions
 
 .image ./blobpool/whitespace.png
 
@@ -211,11 +191,11 @@ Blob transactions should be standalone
 - 0-blob transactions break low-churn, size uniformity, predictability 
 - Rejecting them in the pool but accepting in-protocol (blocks) breaks during reorgs
 
-* Constraint: Dropping blobs needs delay
+* Lifecycle of transactions
 
 .image ./blobpool/whitespace.png
 
-Ethereum transactions get stored fully in the chain
+Ethereum transactions get stored fully on the chain
 
 - Upon inclusion, a transaction is dropped form the pool
 - Upon reorg, a lost transaction is resurrected back into the pool
@@ -227,7 +207,7 @@ Blob-transaction blobs are discarded from the chain
 - Mini reorgs cannot resurrect transactions into the pool
 - Blobs need to be stored until they are finalized and discardable
 
-* Constraint: Blobs can appear via MEV bundles
+* Points of entry
 
 .image ./blobpool/whitespace.png
 

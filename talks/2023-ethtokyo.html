@@ -56,7 +56,7 @@
 
   
   <p>
-    Layer-2 chains aggregate transactions
+    Layer-2s are semi-independent blockchains
   </p>
   
 
@@ -121,7 +121,7 @@
 
   
   <p>
-    Commitments <b>do not</b> live forever ⇒ archiving them is insanity
+    Commitments <b>don't need to</b> live forever ⇒ archiving them is insanity
   </p>
   
 
@@ -201,7 +201,7 @@
   
       <article class="">
       
-        <h2>Nuts and bolts of 4844</h2>
+        <h2>Blob-transaction pooling</h2>
       
       </article>
   
@@ -209,62 +209,7 @@
   
       <article class="">
       
-        <h3>EIP-4844 is quite the beast</h3>
-        <img src="./2023-ethtokyo/totoro.png" style="position: absolute; right: 2em; top: 9em; width: 350px; border:solid 1px rgba(0,0,0,.3); -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;">
-<div class="image">
-  <img src="./2023-ethtokyo/whitespace.png">
-</div>
-
-  
-  <p>
-    Execution clients
-  </p>
-  
-
-  <ul>
-  
-    <li>Propagate the sizeable (512 KB) transactions</li>
-  
-    <li>Store the pending ones and prioritize for inclusion*</li>
-  
-    <li>Verify the commitments and deliver txs to consensus</li>
-  
-  </ul>
-
-<div class="image">
-  <img src="./2023-ethtokyo/whitespace.png">
-</div>
-
-  
-  <p>
-    Consensus clients
-  </p>
-  
-
-  <ul>
-  
-    <li>Propagate the blob-extended (i.e. huge) blocks</li>
-  
-    <li>Store and track the included blobs until expiration</li>
-  
-  </ul>
-
-      
-      </article>
-  
-  
-  
-      <article class="">
-      
-        <h2>Geth's blob-transaction pool</h2>
-      
-      </article>
-  
-  
-  
-      <article class="">
-      
-        <h3>Constraint: Blob transactions are large</h3>
+        <h3>Transaction size</h3>
         <img src="./2023-ethtokyo/topology-mesh.png" style="position: absolute; right: 7em; top: 4em; width: 120px;">
 <img src="./2023-ethtokyo/topology-star.png" style="position: absolute; right: 1.5em; top: 4em; width: 120px;">
 
@@ -314,7 +259,7 @@
   
       <article class="">
       
-        <h3>Constraint: Block blob-space is limited</h3>
+        <h3>Block space</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -367,7 +312,7 @@
   
       <article class="">
       
-        <h3>Constraint: Purpose of blobs are layer-2s</h3>
+        <h3>Purpose of transactions</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -414,7 +359,7 @@
   
       <article class="">
       
-        <h3>Constraint: Replacements are expensive</h3>
+        <h3>Cost of replacements</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -465,7 +410,7 @@
   
       <article class="">
       
-        <h3>Constraint: Cancellation is prohibitive</h3>
+        <h3>Cost of cancellations</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -512,7 +457,7 @@
   
       <article class="">
       
-        <h3>Constraint: Local txs are meaningless</h3>
+        <h3>Relevancy of locality</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -559,7 +504,7 @@
   
       <article class="">
       
-        <h3>Constraint: No-blob blob-txs are bad</h3>
+        <h3>Genericity of transactions</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -606,7 +551,7 @@
   
       <article class="">
       
-        <h3>Constraint: Dropping blobs needs delay</h3>
+        <h3>Lifecycle of transactions</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
@@ -614,7 +559,7 @@
 
   
   <p>
-    Ethereum transactions get stored fully in the chain
+    Ethereum transactions get stored fully on the chain
   </p>
   
 
@@ -651,7 +596,7 @@
   
       <article class="">
       
-        <h3>Constraint: Blobs can appear via MEV bundles</h3>
+        <h3>Points of entry</h3>
         
 <div class="image">
   <img src="./2023-ethtokyo/whitespace.png">
